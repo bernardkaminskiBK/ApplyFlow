@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="ApplyFlow/ApplyFlow.Api.csproj" />
+  <Project Path="AppylyFlow.Tests/ApplyFlow.Tests.csproj" Id="eafa821b-49fe-4550-b2cc-25f81260efc6" />
+</Solution>

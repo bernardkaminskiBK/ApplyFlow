@@ -1,0 +1,30 @@
+@baseUrl = https://localhost:44319
+
+### Get all companies
+GET {{baseUrl}}/api/companies
+
+### Get company by id
+GET {{baseUrl}}/api/companies/1
+
+### Create company
+POST {{baseUrl}}/api/companies
+Content-Type: application/json
+{
+  "name": "Microsoft",
+  "city": "Bratislava",
+  "website": "https://www.microsoft.com",
+  "note": "Test company"
+}
+
+### Update company
+PUT {{baseUrl}}/api/companies/1
+Content-Type: application/json
+{
+  "name": "SEN Systems Updated",
+  "city": "Bratislava",
+  "website": "https://www.sensystems.sk",
+  "note": "Updated note"
+}
+
+### Delete company
+DELETE {{baseUrl}}/api/companies/4
