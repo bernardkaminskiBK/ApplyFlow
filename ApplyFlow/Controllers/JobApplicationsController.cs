@@ -28,12 +28,7 @@ public class JobApplicationsController : ControllerBase
     {
         var application = await _jobApplicationService.GetByIdAsync(id);
 
-        if (application is null)
-        {
-            return NotFound();
-        }
-
-        return Ok(application);
+        return application is null ? NotFound() : Ok(application);
     }
 
     [HttpPost]
@@ -49,12 +44,7 @@ public class JobApplicationsController : ControllerBase
     {
         var updated = await _jobApplicationService.UpdateAsync(id, request);
 
-        if (!updated)
-        {
-            return NotFound();
-        }
-
-        return NoContent();
+        return !updated ? NotFound() : NoContent();
     }
 
     [HttpDelete("{id:int}")]
@@ -62,11 +52,6 @@ public class JobApplicationsController : ControllerBase
     {
         var deleted = await _jobApplicationService.DeleteAsync(id);
 
-        if (!deleted)
-        {
-            return NotFound();
-        }
-
-        return NoContent();
+        return !deleted ? NotFound() : NoContent();
     }
 }

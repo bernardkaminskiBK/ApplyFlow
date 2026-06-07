@@ -28,12 +28,7 @@ public class ApplicationEventsController : ControllerBase
     {
         var applicationEvent = await _applicationEventService.GetByIdAsync(id);
 
-        if (applicationEvent is null)
-        {
-            return NotFound();
-        }
-
-        return Ok(applicationEvent);
+        return applicationEvent is null ? NotFound() : Ok(applicationEvent);
     }
 
     [HttpGet("by-job-application/{jobApplicationId:int}")]
@@ -57,12 +52,7 @@ public class ApplicationEventsController : ControllerBase
     {
         var updated = await _applicationEventService.UpdateAsync(id, request);
 
-        if (!updated)
-        {
-            return NotFound();
-        }
-
-        return NoContent();
+        return !updated ? NotFound() : NoContent();
     }
 
     [HttpDelete("{id:int}")]
@@ -70,11 +60,6 @@ public class ApplicationEventsController : ControllerBase
     {
         var deleted = await _applicationEventService.DeleteAsync(id);
 
-        if (!deleted)
-        {
-            return NotFound();
-        }
-
-        return NoContent();
+        return !deleted ? NotFound() : NoContent();
     }
 }

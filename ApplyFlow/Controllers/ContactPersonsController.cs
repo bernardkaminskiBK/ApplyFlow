@@ -28,12 +28,7 @@ public class ContactPersonsController : ControllerBase
     {
         var contact = await _contactPersonService.GetByIdAsync(id);
 
-        if (contact is null)
-        {
-            return NotFound();
-        }
-
-        return Ok(contact);
+        return contact is null ? NotFound() : Ok(contact);
     }
 
     [HttpPost]
@@ -49,12 +44,7 @@ public class ContactPersonsController : ControllerBase
     {
         var updated = await _contactPersonService.UpdateAsync(id, request);
 
-        if (!updated)
-        {
-            return NotFound();
-        }
-
-        return NoContent();
+        return !updated ? NotFound() : NoContent();
     }
 
     [HttpDelete("{id:int}")]
@@ -62,11 +52,6 @@ public class ContactPersonsController : ControllerBase
     {
         var deleted = await _contactPersonService.DeleteAsync(id);
 
-        if (!deleted)
-        {
-            return NotFound();
-        }
-
-        return NoContent();
+        return !deleted ? NotFound() : NoContent();
     }
 }

@@ -28,12 +28,7 @@ public class CompaniesController : ControllerBase
     {
         var company = await _companyService.GetByIdAsync(id);
 
-        if (company is null)
-        {
-            return NotFound();
-        }
-
-        return Ok(company);
+        return company is null ? NotFound() : Ok(company);
     }
 
     [HttpPost]
@@ -49,12 +44,7 @@ public class CompaniesController : ControllerBase
     {
         var updated = await _companyService.UpdateAsync(id, request);
 
-        if (!updated)
-        {
-            return NotFound();
-        }
-
-        return NoContent();
+        return !updated ? NotFound() : NoContent();
     }
 
     [HttpDelete("{id:int}")]
@@ -62,11 +52,6 @@ public class CompaniesController : ControllerBase
     {
         var deleted = await _companyService.DeleteAsync(id);
 
-        if (!deleted)
-        {
-            return NotFound();
-        }
-
-        return NoContent();
+        return !deleted ? NotFound() : NoContent();
     }
 }
