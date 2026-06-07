@@ -10,6 +10,7 @@ public class GlobalExceptionHandler : IExceptionHandler
         var response = exception switch
         {
             CompanyAlreadyExistsException => (StatusCodes.Status409Conflict, exception.Message),
+            CompanyNotFoundException => (StatusCodes.Status404NotFound, exception.Message),
             _ => (StatusCodes.Status500InternalServerError, "An unexpected error occurred.")
         };
 

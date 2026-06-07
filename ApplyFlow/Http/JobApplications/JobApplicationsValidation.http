@@ -1,0 +1,57 @@
+@host = https://localhost:44319
+
+### JobApplication validation - missing position title
+POST {{host}}/api/job-applications
+Content-Type: application/json
+{
+  "companyId": 1,
+  "location": "Bratislava",
+  "workMode": 1,
+  "status": 1,
+  "source": 0,
+  "appliedDate": "2026-06-07"
+}
+
+### JobApplication validation - salary below zero
+POST {{host}}/api/job-applications
+Content-Type: application/json
+{
+  "companyId": 1,
+  "positionTitle": "Junior Developer",
+  "location": "Bratislava",
+  "workMode": 1,
+  "status": 1,
+  "source": 0,
+  "appliedDate": "2026-06-07",
+  "salaryMin": -100,
+  "salaryMax": 1500
+}
+
+### JobApplication validation - salary too high
+POST {{host}}/api/job-applications
+Content-Type: application/json
+{
+  "companyId": 1,
+  "positionTitle": "Junior Developer",
+  "location": "Bratislava",
+  "workMode": 1,
+  "status": 1,
+  "source": 0,
+  "appliedDate": "2026-06-07",
+  "salaryMin": 1000,
+  "salaryMax": 150000
+}
+
+### JobApplication validation - too long note
+POST {{host}}/api/job-applications
+Content-Type: application/json
+{
+  "companyId": 1,
+  "positionTitle": "Junior Developer",
+  "location": "Bratislava",
+  "workMode": 1,
+  "status": 1,
+  "source": 0,
+  "appliedDate": "2026-06-07",
+  "note": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+}

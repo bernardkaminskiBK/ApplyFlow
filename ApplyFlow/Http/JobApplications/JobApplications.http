@@ -1,0 +1,45 @@
+@host = https://localhost:44319
+
+### Get all job applications
+GET {{host}}/api/job-applications
+Accept: application/json
+
+### Get job application by id
+GET {{host}}/api/job-applications/14
+Accept: application/json
+
+### Create job application
+POST {{host}}/api/job-applications
+Content-Type: application/json
+{
+  "companyId": 1,
+  "positionTitle": "React Developer",
+  "location": "Bratislava",
+  "workMode": 1,
+  "status": 1,
+  "source": 0,
+  "appliedDate": "2026-06-07",
+  "salaryMin": 1400,
+  "salaryMax": 1800,
+  "note": "Interview on Friday"
+}
+
+### Update job application
+PUT {{host}}/api/job-applications/14
+Content-Type: application/json
+
+{
+  "companyId": 1,
+  "positionTitle": "Senior React Developer",
+  "location": "Bratislava",
+  "workMode": 1,
+  "status": 2,
+  "source": 0,
+  "appliedDate": "2026-06-07",
+  "salaryMin": 1800,
+  "salaryMax": 2200,
+  "note": "Updated after interview"
+}
+
+### Delete job application
+DELETE {{host}}/api/job-applications/5

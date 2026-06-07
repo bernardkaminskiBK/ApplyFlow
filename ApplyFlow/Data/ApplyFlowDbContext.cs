@@ -6,8 +6,7 @@ namespace ApplyFlow.Api.Data;
 
 public class ApplyFlowDbContext : DbContext
 {
-    public ApplyFlowDbContext(DbContextOptions<ApplyFlowDbContext> options)
-        : base(options)
+    public ApplyFlowDbContext(DbContextOptions<ApplyFlowDbContext> options) : base(options)
     {
     }
 

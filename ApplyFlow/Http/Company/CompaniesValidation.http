@@ -1,0 +1,26 @@
+@host = https://localhost:44319
+
+### Company validation - missing name
+POST {{host}}/api/companies
+Content-Type: application/json
+{
+  "city": "Bratislava",
+  "website": "https://www.example.com"
+}
+
+### Company validation - invalid website
+POST {{host}}/api/companies
+Content-Type: application/json
+{
+  "name": "Invalid Website Company",
+  "city": "Bratislava",
+  "website": "not-a-valid-url"
+}
+
+### Company validation - too long name
+POST {{host}}/api/companies
+Content-Type: application/json
+{
+  "name": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "city": "Bratislava"
+}
