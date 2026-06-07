@@ -1,4 +1,4 @@
-﻿using ApplyFlow.Api.Dtos.Companies;
+﻿using ApplyFlow.Api.Dtos.Company;
 using ApplyFlow.Api.Exceptions;
 using ApplyFlow.Api.Models;
 using ApplyFlow.Api.Repositories;

@@ -1,4 +1,4 @@
-﻿using ApplyFlow.Api.Dtos.Companies;
+﻿using ApplyFlow.Api.Dtos.Company;
 
 namespace ApplyFlow.Api.Services;
 

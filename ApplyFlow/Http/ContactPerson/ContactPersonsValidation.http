@@ -1,0 +1,40 @@
+@host = https://localhost:44319
+
+### Validation - invalid company id
+POST {{host}}/api/contact-persons
+Content-Type: application/json
+{
+  "companyId": 0,
+  "name": "Invalid Contact",
+  "position": "Recruiter",
+  "email": "test@example.com"
+}
+
+### Validation - missing name
+POST {{host}}/api/contact-persons
+Content-Type: application/json
+{
+  "companyId": 1,
+  "position": "Recruiter",
+  "email": "test@example.com"
+}
+
+### Validation - invalid email
+POST {{host}}/api/contact-persons
+Content-Type: application/json
+{
+  "companyId": 1,
+  "name": "Invalid Email Contact",
+  "position": "Recruiter",
+  "email": "not-an-email"
+}
+
+### Business validation - company not found
+POST {{host}}/api/contact-persons
+Content-Type: application/json
+{
+  "companyId": 999,
+  "name": "Ghost Recruiter",
+  "position": "Recruiter",
+  "email": "ghost@example.com"
+}

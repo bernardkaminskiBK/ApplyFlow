@@ -1,4 +1,4 @@
-﻿namespace ApplyFlow.Api.Dtos.Companies;
+﻿namespace ApplyFlow.Api.Dtos.Company;
 
 public class CompanyResponse
 {

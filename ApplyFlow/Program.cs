@@ -22,6 +22,8 @@ builder.Services.AddScoped<IJobApplicationRepository, JobApplicationRepository>(
 builder.Services.AddScoped<IJobApplicationService, JobApplicationService>();
 builder.Services.AddScoped<IApplicationEventRepository, ApplicationEventRepository>();
 builder.Services.AddScoped<IApplicationEventService, ApplicationEventService>();
+builder.Services.AddScoped<IContactPersonRepository, ContactPersonRepository>();
+builder.Services.AddScoped<IContactPersonService, ContactPersonService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

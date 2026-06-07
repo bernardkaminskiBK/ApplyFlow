@@ -1,0 +1,33 @@
+@host = https://localhost:44319
+
+### Get all contact persons
+GET {{host}}/api/contact-persons
+Accept: application/json
+
+### Get contact person by id
+GET {{host}}/api/contact-persons/1
+Accept: application/json
+
+### Create contact person
+POST {{host}}/api/contact-persons
+Content-Type: application/json
+{
+  "companyId": 1,
+  "name": "Jana Novakova",
+  "position": "HR Recruiter",
+  "email": "jana.novakova@example.com",
+  "phoneNumber": "+421900123456"
+}
+
+### Update contact person
+PUT {{host}}/api/contact-persons/1
+Content-Type: application/json
+{
+  "name": "Jana Novakova Updated",
+  "position": "Senior HR Recruiter",
+  "email": "jana.updated@example.com",
+  "phoneNumber": "+421900654321"
+}
+
+### Delete contact person
+DELETE {{host}}/api/contact-persons/1
