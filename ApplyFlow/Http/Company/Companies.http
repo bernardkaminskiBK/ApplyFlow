@@ -27,4 +27,4 @@ Content-Type: application/json
 }
 
 ### Delete company
-DELETE {{baseUrl}}/api/companies/4
+DELETE {{baseUrl}}/api/companies/7

@@ -1,18 +1,17 @@
 ﻿using ApplyFlow.Api.Enums;
+using System.ComponentModel.DataAnnotations;
 
-namespace ApplyFlow.Api.Models;
+namespace ApplyFlow.Api.Dtos.ApplicationEvents;
 
-public class ApplicationEvent
+public class CreateApplicationEventRequest
 {
-    public int Id { get; set; }
-
+    [Range(1, int.MaxValue)]
     public int JobApplicationId { get; set; }
-
-    public JobApplication JobApplication { get; set; } = null!;
 
     public ApplicationEventType EventType { get; set; }
 
     public DateOnly EventDate { get; set; }
 
+    [StringLength(1000)]
     public string? Note { get; set; }
 }

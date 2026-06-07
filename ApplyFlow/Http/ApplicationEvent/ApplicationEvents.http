@@ -1,0 +1,35 @@
+@host = https://localhost:44319
+
+### Get all application events
+GET {{host}}/api/application-events
+Accept: application/json
+
+### Get application event by id
+GET {{host}}/api/application-events/1
+Accept: application/json
+
+### Get events by job application id
+GET {{host}}/api/application-events/by-job-application/1
+Accept: application/json
+
+### Create application event
+POST {{host}}/api/application-events
+Content-Type: application/json
+{
+  "jobApplicationId": 1,
+  "eventType": 0,
+  "eventDate": "2026-06-07",
+  "note": "Application submitted"
+}
+
+### Update application event
+PUT {{host}}/api/application-events/1
+Content-Type: application/json
+{
+  "eventType": 2,
+  "eventDate": "2026-06-08",
+  "note": "Interview scheduled"
+}
+
+### Delete application event
+DELETE {{host}}/api/application-events/1

@@ -41,10 +41,7 @@ public class CompaniesController : ControllerBase
     {
         var company = await _companyService.CreateAsync(request);
 
-        return CreatedAtAction(
-            nameof(GetById),
-            new { id = company.Id },
-            company);
+        return CreatedAtAction(nameof(GetById), new { id = company.Id }, company);
     }
 
     [HttpPut("{id:int}")]

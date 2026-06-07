@@ -1,14 +1,16 @@
 ﻿using ApplyFlow.Api.Enums;
 
-namespace ApplyFlow.Api.Models;
+namespace ApplyFlow.Api.Dtos.ApplicationEvents;
 
-public class ApplicationEvent
+public class ApplicationEventResponse
 {
     public int Id { get; set; }
 
     public int JobApplicationId { get; set; }
 
-    public JobApplication JobApplication { get; set; } = null!;
+    public string PositionTitle { get; set; } = string.Empty;
+
+    public string CompanyName { get; set; } = string.Empty;
 
     public ApplicationEventType EventType { get; set; }
 

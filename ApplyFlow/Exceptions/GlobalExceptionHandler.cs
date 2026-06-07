@@ -11,6 +11,7 @@ public class GlobalExceptionHandler : IExceptionHandler
         {
             CompanyAlreadyExistsException => (StatusCodes.Status409Conflict, exception.Message),
             CompanyNotFoundException => (StatusCodes.Status404NotFound, exception.Message),
+            JobApplicationNotFoundException => (StatusCodes.Status404NotFound, exception.Message),
             _ => (StatusCodes.Status500InternalServerError, "An unexpected error occurred.")
         };
 
