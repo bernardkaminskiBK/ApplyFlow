@@ -24,5 +24,15 @@ services:
     ports:
       - "8080:8080"
 
+  frontend:
+    build:
+      context: ./applyflow-web
+      dockerfile: Dockerfile
+    container_name: applyflow-web
+    ports:
+      - "3000:80"
+    depends_on:
+      - api
+
 volumes:
   applyflow_sql_data:
