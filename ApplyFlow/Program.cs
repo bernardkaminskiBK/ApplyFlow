@@ -23,7 +23,8 @@ builder.Services.AddCors(options =>
             .WithOrigins(
             "http://localhost:5173",
             "http://localhost:4173",
-            "http://localhost:3000"
+            "http://localhost:3000",
+            "http://167.233.40.225:3000"
             )
             .AllowAnyHeader()
             .AllowAnyMethod();
