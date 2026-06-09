@@ -5,7 +5,7 @@ namespace ApplyFlow.Api.Dtos.JobApplications;
 
 public class CreateJobApplicationRequest
 {
-    [Required]
+    [Range(1, int.MaxValue)]
     public int CompanyId { get; set; }
 
     [Required]
