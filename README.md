@@ -115,14 +115,14 @@ The system contains four main business entities:
 * ContactPerson
 
 Relationships:
-
+```
 Company
 ├── JobApplications
 └── ContactPersons
 
 JobApplication
 └── ApplicationEvents
-
+```
 ## Learning Goals
 
 This project was created to practice and demonstrate:
