@@ -1,4 +1,4 @@
 {
   "environment": "Docker",
-  "apiBaseUrl": "http://localhost:8080/api"
+  "apiBaseUrl": "http://167.233.40.225:8080"
 }
