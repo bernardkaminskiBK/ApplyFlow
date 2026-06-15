@@ -77,6 +77,33 @@ export default function DashboardPage() {
           <Divider sx={{ my: 3 }} />
 
           <Typography variant="h6" gutterBottom>
+            Source Code
+          </Typography>
+
+          <Typography>
+            The source code for this project is publicly available on GitHub.
+          </Typography>
+
+          <Button
+            variant="contained"
+            href="https://github.com/bernardkaminskiBK/applyflow-web.git"
+            target="_blank"
+          >
+            View Frontend Repository
+          </Button>
+
+          <Button
+            variant="outlined"
+            href="https://github.com/bernardkaminskiBK/ApplyFlow.git"
+            target="_blank"
+            sx={{ ml: 2 }}
+          >
+            View Backend Repository
+          </Button>
+
+          <Divider sx={{ my: 3 }} />
+
+          <Typography variant="h6" gutterBottom>
             Implemented features
           </Typography>
 
@@ -147,33 +174,6 @@ export default function DashboardPage() {
             These areas would be natural candidates for future iterations of the
             project.
           </Typography>
-
-          <Divider sx={{ my: 3 }} />
-
-          <Typography variant="h6" gutterBottom>
-            Source Code
-          </Typography>
-
-          <Typography>
-            The source code for this project is publicly available on GitHub.
-          </Typography>
-
-          <Button
-            variant="contained"
-            href="https://github.com/bernardkaminskiBK/applyflow-web.git"
-            target="_blank"
-          >
-            View Frontend Repository
-          </Button>
-
-          <Button
-            variant="outlined"
-            href="https://github.com/bernardkaminskiBK/ApplyFlow.git"
-            target="_blank"
-            sx={{ ml: 2 }}
-          >
-            View Backend Repository
-          </Button>
         </CardContent>
       </Card>
     </>

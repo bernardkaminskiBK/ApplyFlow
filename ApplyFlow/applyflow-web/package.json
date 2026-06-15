@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "build:docker-local": "tsc -b && vite build --mode docker-local",
     "lint": "eslint .",
     "preview": "vite preview"
   },

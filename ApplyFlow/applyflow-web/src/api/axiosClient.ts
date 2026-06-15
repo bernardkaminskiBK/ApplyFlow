@@ -1,10 +1,7 @@
 import axios from "axios";
 
-const response = await fetch("/config.json");
-const config = await response.json();
-
-console.log(config.apiBaseUrl);
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
 
 export const axiosClient = axios.create({
-  baseURL: config.apiBaseUrl,
+  baseURL: apiBaseUrl,
 });

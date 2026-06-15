@@ -52,9 +52,13 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-using (var scope = app.Services.CreateScope())
+var applyMigrations = builder.Configuration.GetValue<bool>("Database:ApplyMigrationsOnStartup");
+
+if (applyMigrations)
 {
+    using var scope = app.Services.CreateScope();
     var dbContext = scope.ServiceProvider.GetRequiredService<ApplyFlowDbContext>();
+
     dbContext.Database.Migrate();
 }
 
