@@ -1,4 +1,4 @@
-import type { Company } from "../../types/company/company";
+import type { Company } from "../../features/companies/models/company";
 import type { JobApplicationFormErrors } from "../../types/JobApplication/jobApplicationErrors";
 import {
   Button,

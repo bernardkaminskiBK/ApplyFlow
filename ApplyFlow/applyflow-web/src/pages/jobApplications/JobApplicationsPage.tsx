@@ -10,8 +10,7 @@ import {
   getStatusInfo,
   getWorkModeText,
 } from "../../utils/jobApplicationHelpers";
-import type { Company } from "../../types/company/company";
-import { getCompanies } from "../../api/companiesApi";
+import type { Company } from "../../features/companies/models/company";
 import {
   createJobApplication,
   deleteJobApplication,
@@ -32,6 +31,7 @@ import {
   TableRow,
 } from "@mui/material";
 import PageHeader from "../../components/common/PageHeader";
+import { getCompanies } from "../../api/companiesApi";
 
 export default function JobApplicationsPage() {
   const [applications, setApplications] = useState<JobApplication[]>([]);

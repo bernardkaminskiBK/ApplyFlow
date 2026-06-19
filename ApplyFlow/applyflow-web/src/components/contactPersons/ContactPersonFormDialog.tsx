@@ -12,7 +12,7 @@ import {
   Typography,
 } from "@mui/material";
 
-import type { Company } from "../../types/company/company";
+import type { Company } from "../../features/companies/models/company";
 import type { ContactPersonFormErrors } from "../../types/contactPerson/ContactPersonFormErrors";
 
 type ContactPersonFormDialogProps = {

@@ -1,5 +1,5 @@
 import { axiosClient } from "./axiosClient";
-import type { Company } from "../types/company/company";
+import type { Company } from "../features/companies/models/company";
 
 export type CreateCompanyRequest = {
   name: string;
@@ -24,7 +24,6 @@ export async function createCompany(
 
 export async function getCompanyById(id: number): Promise<Company> {
   const response = await axiosClient.get<Company>(`/companies/${id}`);
-
   return response.data;
 }
 

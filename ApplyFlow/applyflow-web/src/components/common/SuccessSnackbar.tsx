@@ -1,28 +1,27 @@
-import Alert from "@mui/material/Alert";
-import Snackbar from "@mui/material/Snackbar";
+import { Alert, Snackbar } from "@mui/material";
 
-type ErrorSnackBarProps = {
+type SuccessSnackbarProps = {
   open: boolean;
   message: string | null;
   onClose: () => void;
 };
 
-export default function ErrorSnackbar({
+export default function SuccessSnackbar({
   open,
   message,
   onClose,
-}: ErrorSnackBarProps) {
+}: SuccessSnackbarProps) {
   return (
     <Snackbar
       open={open}
-      autoHideDuration={5000}
+      autoHideDuration={3000}
       onClose={onClose}
       anchorOrigin={{
         vertical: "bottom",
         horizontal: "center",
       }}
     >
-      <Alert severity="error" variant="filled" onClose={onClose}>
+      <Alert severity="success" variant="filled" onClose={onClose}>
         {message}
       </Alert>
     </Snackbar>
