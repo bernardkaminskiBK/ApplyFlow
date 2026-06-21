@@ -4,7 +4,7 @@ import ConfirmDeleteDialog from "../../components/common/ConfirmDeleteDialog";
 import type { ApplicationEvent } from "../../types/applicationEvent/applicationEvent";
 import type { ApplicationEventFormErrors } from "../../types/applicationEvent/applicationEventFormError";
 import { getEventTypeText } from "../../utils/applicationEventHelpers";
-import type { JobApplication } from "../../types/JobApplication/jobApplication";
+import type { JobApplication } from "../../features/jobApplications/models/jobApplication";
 import { getJobApplications } from "../../api/jobApplicationsApi";
 import ApplicationEventFormDialog from "../../components/applicationEvents/ApplicationEventFormDialog";
 import {

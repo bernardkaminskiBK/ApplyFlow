@@ -1,14 +1,14 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AppLayout from "./components/layout/AppLayout";
 import DashboardPage from "./pages/dashboard/DashboardPage";
-import JobApplicationsPage from "./pages/jobApplications/JobApplicationsPage";
 import ApplicationEventsPage from "./pages/applicationEvents/ApplicationEventsPage";
 import ContactPersonsPage from "./pages/contactPersons/ContactPersonsPage";
-import JobApplicationDetailsPage from "./pages/jobApplications/JobApplicationDetailsPage";
+import JobApplicationDetailsPage from "./features/jobApplications/pages/JobApplicationDetailsPage";
 import ApplicationEventDetailsPage from "./pages/applicationEvents/ApplicationEventDetailsPage";
 import ContactPersonDetailsPage from "./pages/contactPersons/ContactPersonDetailsPage";
 import CompaniesPage from "./features/companies/pages/CompaniesPage";
 import CompanyDetailsPage from "./features/companies/pages/CompanyDetailsPage";
+import JobApplicationsPage from "./features/jobApplications/pages/JobApplicationsPage";
 
 export default function App() {
   return (

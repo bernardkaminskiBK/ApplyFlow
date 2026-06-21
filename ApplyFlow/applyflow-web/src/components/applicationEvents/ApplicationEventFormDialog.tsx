@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 
 import type { ApplicationEventFormErrors } from "../../types/applicationEvent/applicationEventFormError";
-import type { JobApplication } from "../../types/JobApplication/jobApplication";
+import type { JobApplication } from "../../features/jobApplications/models/jobApplication";
 
 type ApplicationEventFormDialogProps = {
   open: boolean;

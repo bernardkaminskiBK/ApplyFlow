@@ -1,4 +1,4 @@
-import type { JobApplication } from "../types/JobApplication/jobApplication";
+import type { JobApplication } from "../features/jobApplications/models/jobApplication";
 import { axiosClient } from "./axiosClient";
 
 export type CreateJobApplicationRequest = {

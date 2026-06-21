@@ -12,7 +12,6 @@ export function createCompanyColumns(
       field: "name",
       headerName: "Name",
       flex: 1,
-      headerClassName: "bold-header",
       renderCell: (params) => (
         <Link to={`/companies/${params.row.id}`}>{params.value}</Link>
       ),
@@ -21,25 +20,21 @@ export function createCompanyColumns(
       field: "city",
       headerName: "City",
       flex: 1,
-      headerClassName: "bold-header",
     },
     {
       field: "website",
       headerName: "Website",
       flex: 1,
-      headerClassName: "bold-header",
     },
     {
       field: "note",
       headerName: "Note",
       flex: 1,
-      headerClassName: "bold-header",
     },
     {
       field: "actions",
       headerName: "Actions",
       width: 180,
-      headerClassName: "bold-header",
       sortable: false,
       filterable: false,
       renderCell: (params) => (

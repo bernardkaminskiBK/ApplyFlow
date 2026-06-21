@@ -1,85 +1,90 @@
 import { useEffect, useState } from "react";
-import { Box } from "@mui/material";
-import { DataGrid } from "@mui/x-data-grid";
-import PageHeader from "../../../components/common/PageHeader";
-import SearchField from "../../../components/common/SearchField";
-import CompanyFormDialog from "../components/CompanyFormDialog";
-import { useCompanyDialog } from "../hooks/useCompanyDialog";
-import { createCompanyColumns } from "../grid/companyColumns";
 import ConfirmDeleteDialog from "../../../components/common/ConfirmDeleteDialog";
-import { useCompanies } from "../hooks/useCompanies";
-import { useCompanyDeleteDialog } from "../hooks/useCompanyDeleteDialog";
+import JobApplicationFormDialog from "../components/JobApplicationFormDialog";
+import SearchField from "../../../components/common/SearchField";
+import { Box } from "@mui/material";
+import PageHeader from "../../../components/common/PageHeader";
+import { useJobApplications } from "../hooks/useJobApplications";
+import { useJobApplicationDialog } from "../hooks/useJobApplicationDialog";
+import { useJobApplicationDeleteDialog } from "../hooks/useJobApplicationDeleteDialog";
+import { DataGrid } from "@mui/x-data-grid";
+import { createJobApplicationColumns } from "../grid/jobApplicationColumns";
 import ErrorSnackbar from "../../../components/common/ErrorSnackbar";
 import SuccessSnackbar from "../../../components/common/SuccessSnackbar";
 
-export default function CompaniesPage() {
+export default function JobApplicationsPage() {
   const {
-    companies,
+    jobApplications,
     loading,
     error,
     successMessage,
-    loadCompanies,
-    saveCompany,
-    removeCompany,
+    loadJobApplications,
+    saveJobApplication,
+    removeJobApplication,
     clearError,
     clearSuccessMessage,
-  } = useCompanies();
+  } = useJobApplications();
 
   const {
     errors,
     form,
-    editingCompany,
+    editingApplication,
     isFormDialogOpen,
     updateForm,
     setErrors,
     openCreateDialog,
     openEditDialog,
     closeFormDialog,
-  } = useCompanyDialog();
+  } = useJobApplicationDialog();
 
   const {
-    selectedCompany,
+    selectedApplication,
     isDeleteDialogOpen,
     openDeleteDialog,
     closeDeleteDialog,
-  } = useCompanyDeleteDialog();
+  } = useJobApplicationDeleteDialog();
 
   const [searchText, setSearchText] = useState("");
-  const filteredCompanies = companies.filter((company) =>
-    `${company.name ?? ""} ${company.city ?? ""} ${company.website ?? ""} ${company.note ?? ""}`
+  const filteredApplications = jobApplications.filter((jobApplication) =>
+    `${jobApplication.companyName ?? ""} ${jobApplication.positionTitle ?? ""} ${jobApplication.appliedDate ?? ""} ${jobApplication.location ?? ""}`
       .toLowerCase()
       .includes(searchText.toLowerCase()),
   );
 
-  async function handleSaveCompany() {
-    await saveCompany(form, editingCompany, setErrors, closeFormDialog);
+  async function handleSaveApplication() {
+    await saveJobApplication(
+      form,
+      editingApplication,
+      setErrors,
+      closeFormDialog,
+    );
   }
 
-  async function handleDeleteCompany() {
-    await removeCompany(selectedCompany, closeDeleteDialog);
+  async function handleDeleteApplication() {
+    await removeJobApplication(selectedApplication, closeDeleteDialog);
   }
 
   useEffect(() => {
-    loadCompanies();
+    loadJobApplications();
   }, []);
 
   return (
     <Box>
       <PageHeader
-        title="Companies"
-        buttonText="Add Company"
+        title="Job Applications"
+        buttonText="Add Application"
         onButtonClick={openCreateDialog}
       />
 
       <SearchField
-        label="Search Companies"
+        label="Search Job Applications"
         value={searchText}
         onChange={setSearchText}
       />
 
       <DataGrid
-        rows={filteredCompanies}
-        columns={createCompanyColumns(openEditDialog, openDeleteDialog)}
+        rows={filteredApplications}
+        columns={createJobApplicationColumns(openEditDialog, openDeleteDialog)}
         loading={loading}
         pageSizeOptions={[5, 10, 25]}
         initialState={{
@@ -101,23 +106,23 @@ export default function CompaniesPage() {
         }}
       />
 
-      <CompanyFormDialog
+      <JobApplicationFormDialog
         open={isFormDialogOpen}
-        title={editingCompany ? "Edit Company" : "Add Company"}
+        title={editingApplication ? "Edit Application" : "Add Application"}
         form={form}
         errors={errors}
         onChange={updateForm}
         onClose={closeFormDialog}
-        onSave={handleSaveCompany}
+        onSave={handleSaveApplication}
       />
 
       <ConfirmDeleteDialog
         open={isDeleteDialogOpen}
-        title="Delete Company"
-        itemType="company"
-        itemName={selectedCompany?.name}
+        title="Delete Application"
+        itemType="application"
+        itemName={selectedApplication?.positionTitle}
         onClose={closeDeleteDialog}
-        onConfirm={handleDeleteCompany}
+        onConfirm={handleDeleteApplication}
       />
 
       <ErrorSnackbar

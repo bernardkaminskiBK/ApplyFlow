@@ -11,6 +11,7 @@ import {
 import DetailRow from "../../../components/common/DetailRow";
 import type { Company } from "../models/company";
 import { getCompanyById } from "../../../api/companiesApi";
+import LoadingSpinner from "../../../components/common/LoadingSpinner";
 
 export default function CompanyDetailsPage() {
   const [company, setCompany] = useState<Company | null>(null);
@@ -33,7 +34,7 @@ export default function CompanyDetailsPage() {
   }
 
   if (!company) {
-    return <Typography>Loading...</Typography>;
+    return <LoadingSpinner />;
   }
 
   return (
