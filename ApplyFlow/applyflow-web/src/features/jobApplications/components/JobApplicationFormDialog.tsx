@@ -23,7 +23,10 @@ type JobApplicationFormDialogProps = {
   title: string;
   form: JobApplicationFormValues;
   errors: JobApplicationFormErrors;
-  onChange: (field: keyof JobApplicationFormValues, value: string) => void;
+  onChange: (
+    field: keyof JobApplicationFormValues,
+    value: string | number,
+  ) => void;
   onClose: () => void;
   onSave: () => void;
 };
@@ -100,7 +103,7 @@ export default function JobApplicationFormDialog({
             label="Work Mode"
             value={form.workMode}
             onChange={(event) =>
-              onChange("workMode", event.target.value.toString())
+              onChange("workMode", Number(event.target.value))
             }
           >
             <MenuItem value="0">Onsite</MenuItem>
@@ -115,9 +118,7 @@ export default function JobApplicationFormDialog({
           <Select
             label="Source"
             value={form.source}
-            onChange={(event) =>
-              onChange("source", event.target.value.toString())
-            }
+            onChange={(event) => onChange("source", Number(event.target.value))}
           >
             <MenuItem value="0">Profesia</MenuItem>
             <MenuItem value="1">LinkedIn</MenuItem>
@@ -133,9 +134,7 @@ export default function JobApplicationFormDialog({
           <Select
             label="Status"
             value={form.status}
-            onChange={(event) =>
-              onChange("status", event.target.value.toString())
-            }
+            onChange={(event) => onChange("status", Number(event.target.value))}
           >
             <MenuItem value="0">Draft</MenuItem>
             <MenuItem value="1">Applied</MenuItem>
@@ -168,8 +167,16 @@ export default function JobApplicationFormDialog({
 
         <TextField
           label="Salary Min"
-          value={form.salaryMin}
-          onChange={(event) => onChange("salaryMin", event.target.value)}
+          value={form.salaryMin === 0 ? "" : form.salaryMin}
+          type="number"
+          slotProps={{
+            htmlInput: {
+              min: 0,
+            },
+          }}
+          onChange={(event) =>
+            onChange("salaryMin", Number(event.target.value))
+          }
           error={Boolean(errors.salaryMin)}
           helperText={errors.salaryMin}
           fullWidth
@@ -178,8 +185,16 @@ export default function JobApplicationFormDialog({
 
         <TextField
           label="Salary Max"
-          value={form.salaryMax}
-          onChange={(event) => onChange("salaryMax", event.target.value)}
+          value={form.salaryMax === 0 ? "" : form.salaryMax}
+          type="number"
+          slotProps={{
+            htmlInput: {
+              min: 0,
+            },
+          }}
+          onChange={(event) =>
+            onChange("salaryMax", Number(event.target.value))
+          }
           error={Boolean(errors.salaryMax)}
           helperText={errors.salaryMax}
           fullWidth

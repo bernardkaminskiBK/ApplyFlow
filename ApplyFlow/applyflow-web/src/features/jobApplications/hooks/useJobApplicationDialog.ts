@@ -27,7 +27,10 @@ export function useJobApplicationDialog() {
 
   const [isFormDialogOpen, setIsFormDialogOpen] = useState(false);
 
-  function updateForm(field: keyof JobApplicationFormValues, value: string) {
+  function updateForm(
+    field: keyof JobApplicationFormValues,
+    value: string | number,
+  ) {
     setForm((currentApplication) => ({
       ...currentApplication,
       [field]: value,
