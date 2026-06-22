@@ -11,10 +11,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import {
-  getStatusInfo,
-  getWorkModeText,
-} from "../../../utils/jobApplicationHelpers";
+import { getStatusInfo, getWorkModeText } from "../utils/jobApplicationHelpers";
 import LoadingSpinner from "../../../components/common/LoadingSpinner";
 
 export default function JobApplicationDetailsPage() {

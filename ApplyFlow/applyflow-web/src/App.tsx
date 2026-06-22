@@ -1,11 +1,11 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AppLayout from "./components/layout/AppLayout";
-import DashboardPage from "./pages/dashboard/DashboardPage";
-import ApplicationEventsPage from "./pages/applicationEvents/ApplicationEventsPage";
-import ContactPersonsPage from "./pages/contactPersons/ContactPersonsPage";
+import DashboardPage from "./features/dashboard/pages/DashboardPage";
+import ApplicationEventsPage from "./features/applicationEvents/pages/ApplicationEventsPage";
+import ContactPersonsPage from "./features/contactPersons/pages/ContactPersonsPage";
 import JobApplicationDetailsPage from "./features/jobApplications/pages/JobApplicationDetailsPage";
-import ApplicationEventDetailsPage from "./pages/applicationEvents/ApplicationEventDetailsPage";
-import ContactPersonDetailsPage from "./pages/contactPersons/ContactPersonDetailsPage";
+import ApplicationEventDetailsPage from "./features/applicationEvents/pages/ApplicationEventDetailsPage";
+import ContactPersonDetailsPage from "./features/contactPersons/pages/ContactPersonDetailsPage";
 import CompaniesPage from "./features/companies/pages/CompaniesPage";
 import CompanyDetailsPage from "./features/companies/pages/CompanyDetailsPage";
 import JobApplicationsPage from "./features/jobApplications/pages/JobApplicationsPage";

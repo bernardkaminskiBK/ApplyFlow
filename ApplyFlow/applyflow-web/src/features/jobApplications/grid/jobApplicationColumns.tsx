@@ -6,7 +6,7 @@ import {
   getSourceText,
   getStatusInfo,
   getWorkModeText,
-} from "../../../utils/jobApplicationHelpers";
+} from "../utils/jobApplicationHelpers";
 
 export function createJobApplicationColumns(
   onEdit: (jobApplication: JobApplication) => void,
@@ -42,48 +42,14 @@ export function createJobApplicationColumns(
       field: "workMode",
       headerName: "Work Mode",
       flex: 1,
-      renderCell: (params) => (
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            width: "100%",
-            height: "100%",
-          }}
-        >
-          <Typography
-            sx={{
-              fontStyle: "italic",
-              fontSize: "0.875rem",
-            }}
-          >
-            {getWorkModeText(params.row.workMode)}
-          </Typography>
-        </Box>
-      ),
+      renderCell: (params) => <i>{getWorkModeText(params.row.workMode)}</i>,
     },
     {
       field: "source",
       headerName: "Source",
       flex: 1,
       renderCell: (params) => (
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            width: "100%",
-            height: "100%",
-          }}
-        >
-          <Typography
-            sx={{
-              fontWeight: "bold",
-              fontSize: "0.875rem",
-            }}
-          >
-            {getSourceText(params.row.source)}
-          </Typography>
-        </Box>
+        <strong>{getSourceText(params.row.source)}</strong>
       ),
     },
     {

@@ -1,5 +1,5 @@
 import { axiosClient } from "./axiosClient";
-import type { ApplicationEvent } from "../types/applicationEvent/applicationEvent";
+import type { ApplicationEvent } from "../features/applicationEvents/models/applicationEvent";
 
 export type CreateApplicationEventRequest = {
   jobApplicationId: number;

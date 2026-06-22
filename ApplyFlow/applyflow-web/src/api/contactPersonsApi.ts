@@ -1,5 +1,5 @@
 import { axiosClient } from "./axiosClient";
-import type { ContactPerson } from "../types/contactPerson/contactPerson";
+import type { ContactPerson } from "../features/contactPersons/models/contactPerson";
 
 export type CreateContactPersonRequest = {
   companyId: number;
