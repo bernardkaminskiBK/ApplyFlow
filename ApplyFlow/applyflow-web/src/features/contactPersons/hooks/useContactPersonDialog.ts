@@ -1,7 +1,7 @@
 import { useState } from "react";
 import type { ContactPersonFormValues } from "../models/contactPersonFormValues";
-import type { ContactPersonFormErrors } from "../models/ContactPersonFormErrors";
 import type { ContactPerson } from "../models/contactPerson";
+import type { ContactPersonFormErrors } from "../models/contactPersonFormErrors";
 
 const emptyContactPersonForm: ContactPersonFormValues = {
   companyId: "",

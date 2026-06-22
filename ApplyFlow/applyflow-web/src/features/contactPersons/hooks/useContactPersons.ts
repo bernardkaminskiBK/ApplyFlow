@@ -6,7 +6,7 @@ import {
   deleteContactPerson,
 } from "../../../api/contactPersonsApi";
 import type { ContactPerson } from "../models/contactPerson";
-import type { ContactPersonFormErrors } from "../models/ContactPersonFormErrors";
+import type { ContactPersonFormErrors } from "../models/contactPersonFormErrors";
 import type { ContactPersonFormValues } from "../models/contactPersonFormValues";
 
 export function useContactPersons() {

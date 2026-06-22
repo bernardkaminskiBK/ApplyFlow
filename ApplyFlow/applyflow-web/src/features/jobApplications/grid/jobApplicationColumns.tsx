@@ -1,4 +1,4 @@
-import { Box, Button, Chip, Stack, Typography } from "@mui/material";
+import { Button, Chip, Stack } from "@mui/material";
 import type { GridColDef } from "@mui/x-data-grid";
 import type { JobApplication } from "../models/jobApplication";
 import { Link } from "react-router-dom";

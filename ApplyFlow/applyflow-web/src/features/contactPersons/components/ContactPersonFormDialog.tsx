@@ -15,8 +15,8 @@ import {
 import { useEffect } from "react";
 import ErrorSnackbar from "../../../components/common/ErrorSnackbar";
 import { useCompaniesLookup } from "../../../shared/hooks/useCompaniesLookup";
-import type { ContactPersonFormErrors } from "../models/ContactPersonFormErrors";
 import type { ContactPersonFormValues } from "../models/contactPersonFormValues";
+import type { ContactPersonFormErrors } from "../models/contactPersonFormErrors";
 
 type ContactPersonFormDialogProps = {
   open: boolean;
