@@ -30,6 +30,7 @@ export function createJobApplicationColumns(
       field: "status",
       headerName: "Status",
       flex: 1,
+      valueGetter: (_value, row) => getStatusInfo(row.status).text,
       renderCell: (params) => (
         <Chip
           label={getStatusInfo(params.row.status).text}
@@ -42,12 +43,14 @@ export function createJobApplicationColumns(
       field: "workMode",
       headerName: "Work Mode",
       flex: 1,
+      valueGetter: (_value, row) => getWorkModeText(row.workMode),
       renderCell: (params) => <i>{getWorkModeText(params.row.workMode)}</i>,
     },
     {
       field: "source",
       headerName: "Source",
       flex: 1,
+      valueGetter: (_value, row) => getSourceText(row.source),
       renderCell: (params) => (
         <strong>{getSourceText(params.row.source)}</strong>
       ),

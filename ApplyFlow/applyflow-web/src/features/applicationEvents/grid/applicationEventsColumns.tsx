@@ -23,6 +23,7 @@ export function createApplicationEventColumns(
       field: "eventType",
       headerName: "Event Type",
       flex: 1,
+      valueGetter: (_value, row) => getEventTypeText(row.eventType),
       renderCell: (params) => (
         <Link to={`/application-events/${params.row.id}`}>
           <Chip label={getEventTypeText(params.row.eventType)} size="small" />
