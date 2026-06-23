@@ -1,6 +1,7 @@
 ﻿using ApplyFlow.Api.Dtos.ContactPerson;
 using ApplyFlow.Api.Exceptions;
 using ApplyFlow.Api.Models;
+using ApplyFlow.Api.Models.Shared;
 using ApplyFlow.Api.Repositories;
 
 namespace ApplyFlow.Api.Services;
@@ -16,11 +17,15 @@ public class ContactPersonService : IContactPersonService
         _companyRepository = companyRepository;
     }
 
-    public async Task<List<ContactPersonResponse>> GetAllAsync()
+    public async Task<PagedResult<ContactPersonResponse>> GetAllAsync(int page, int pageSize)
     {
-        var contacts = await _contactPersonRepository.GetAllAsync();
+        var pagedContacts = await _contactPersonRepository.GetAllAsync(page, pageSize);
 
-        return contacts.Select(MapToResponse).ToList();
+        return new PagedResult<ContactPersonResponse>
+        {
+            Items = pagedContacts.Items.Select(MapToResponse).ToList(),
+            TotalCount = pagedContacts.TotalCount
+        };
     }
 
     public async Task<ContactPersonResponse?> GetByIdAsync(int id)

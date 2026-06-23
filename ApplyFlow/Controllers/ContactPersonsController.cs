@@ -1,4 +1,5 @@
 ﻿using ApplyFlow.Api.Dtos.ContactPerson;
+using ApplyFlow.Api.Models.Shared;
 using ApplyFlow.Api.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,9 +17,9 @@ public class ContactPersonsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<ContactPersonResponse>>> GetAll()
+    public async Task<ActionResult<PagedResult<ContactPersonResponse>>> GetAll([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
     {
-        var contacts = await _contactPersonService.GetAllAsync();
+        var contacts = await _contactPersonService.GetAllAsync(page, pageSize);
 
         return Ok(contacts);
     }
