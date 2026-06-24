@@ -28,14 +28,14 @@ export function useDashboard() {
       getCompanies(),
       getJobApplications(),
       getApplicationEvents(),
-      getContactPersons(),
+      getContactPersons(0, 0),
     ])
       .then(([companies, applications, events, contacts]) => {
         setStats({
           companyCount: companies.length,
           applicationCount: applications.length,
           eventCount: events.length,
-          contactCount: contacts.length,
+          contactCount: contacts.totalCount,
         });
       })
       .catch((error) => {

@@ -1,5 +1,6 @@
 import { axiosClient } from "./axiosClient";
 import type { ContactPerson } from "../features/contactPersons/models/contactPerson";
+import type { PagedResult } from "../shared/hooks/models/pagedResult";
 
 export type CreateContactPersonRequest = {
   companyId: number;
@@ -11,8 +12,19 @@ export type CreateContactPersonRequest = {
 
 export type UpdateContactPersonRequest = CreateContactPersonRequest;
 
-export async function getContactPersons(): Promise<ContactPerson[]> {
-  const response = await axiosClient.get<ContactPerson[]>("/contact-persons");
+export async function getContactPersons(
+  page: number,
+  pageSize: number,
+): Promise<PagedResult<ContactPerson>> {
+  const response = await axiosClient.get<PagedResult<ContactPerson>>(
+    "/contact-persons",
+    {
+      params: {
+        page,
+        pageSize,
+      },
+    },
+  );
 
   return response.data;
 }

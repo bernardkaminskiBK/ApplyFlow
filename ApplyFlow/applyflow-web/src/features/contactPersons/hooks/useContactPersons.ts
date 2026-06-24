@@ -14,18 +14,20 @@ export function useContactPersons() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [totalCount, setTotalCount] = useState(0);
 
   function clearSuccessMessage() {
     setSuccessMessage(null);
   }
 
-  async function loadContactPersons() {
+  async function loadContactPersons(page: number, pageSize: number) {
     try {
       setLoading(true);
       setError(null);
 
-      const data = await getContactPersons();
-      setContactPersons(data);
+      const data = await getContactPersons(page + 1, pageSize);
+      setContactPersons(data.items);
+      setTotalCount(data.totalCount);
     } catch {
       setError("Contact persons could not be loaded.");
     } finally {
@@ -36,6 +38,8 @@ export function useContactPersons() {
   async function saveContactPerson(
     form: ContactPersonFormValues,
     editingContact: ContactPerson | null,
+    page: number,
+    pageSize: number,
     onValidationError: (errors: ContactPersonFormErrors) => void,
     onSuccess: () => void,
   ) {
@@ -56,7 +60,7 @@ export function useContactPersons() {
         await createContactPerson(request);
       }
 
-      await loadContactPersons();
+      await loadContactPersons(page, pageSize);
       onSuccess();
       setSuccessMessage("Contact person saved successfully.");
     } catch (error: any) {
@@ -79,6 +83,8 @@ export function useContactPersons() {
 
   async function removeContactPerson(
     contactPerson: ContactPerson | null,
+    page: number,
+    pageSize: number,
     onSuccess: () => void,
   ) {
     if (!contactPerson) return;
@@ -87,7 +93,7 @@ export function useContactPersons() {
       setError(null);
 
       await deleteContactPerson(contactPerson.id);
-      await loadContactPersons();
+      await loadContactPersons(page, pageSize);
       onSuccess();
       setSuccessMessage("Contact person deleted successfully.");
     } catch {
@@ -100,6 +106,7 @@ export function useContactPersons() {
     loading,
     error,
     successMessage,
+    totalCount,
     clearSuccessMessage,
     loadContactPersons,
     saveContactPerson,

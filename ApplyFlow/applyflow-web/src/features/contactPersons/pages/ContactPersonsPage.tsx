@@ -18,6 +18,7 @@ export default function ContactPersonsPage() {
     loading,
     error,
     successMessage,
+    totalCount,
     loadContactPersons,
     saveContactPerson,
     removeContactPerson,
@@ -51,17 +52,34 @@ export default function ContactPersonsPage() {
       .includes(searchText.toLowerCase()),
   );
 
+  const [paginationModel, setPaginationModel] = useState({
+    page: 0,
+    pageSize: 10,
+  });
+
   async function handleSaveContact() {
-    await saveContactPerson(form, editingContact, setErrors, closeFormDialog);
+    await saveContactPerson(
+      form,
+      editingContact,
+      paginationModel.page,
+      paginationModel.pageSize,
+      setErrors,
+      closeFormDialog,
+    );
   }
 
   async function handleDeleteContact() {
-    await removeContactPerson(selectedContact, closeDeleteDialog);
+    await removeContactPerson(
+      selectedContact,
+      paginationModel.page,
+      paginationModel.pageSize,
+      closeDeleteDialog,
+    );
   }
 
   useEffect(() => {
-    loadContactPersons();
-  }, []);
+    loadContactPersons(paginationModel.page, paginationModel.pageSize);
+  }, [paginationModel]);
 
   return (
     <Box>
@@ -81,14 +99,11 @@ export default function ContactPersonsPage() {
         rows={filteredContacts}
         columns={createContactPersonColumns(openEditDialog, openDeleteDialog)}
         loading={loading}
-        pageSizeOptions={[5, 10, 25]}
-        initialState={{
-          pagination: {
-            paginationModel: {
-              pageSize: 10,
-            },
-          },
-        }}
+        paginationMode="server"
+        pageSizeOptions={[5, 10, 25, 50]}
+        rowCount={totalCount}
+        paginationModel={paginationModel}
+        onPaginationModelChange={setPaginationModel}
         sx={{
           "& .MuiDataGrid-columnHeaderTitle": {
             fontWeight: "bold",
