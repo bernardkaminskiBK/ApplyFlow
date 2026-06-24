@@ -1,6 +1,6 @@
 export type DashboardStats = {
   companyCount: number;
-  applicationCount: number;
-  eventCount: number;
-  contactCount: number;
+  jobApplicationCount: number;
+  applicationEventCount: number;
+  contactPersonCount: number;
 };

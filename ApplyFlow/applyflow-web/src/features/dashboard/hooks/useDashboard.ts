@@ -1,16 +1,13 @@
 import { useState, useEffect } from "react";
-import { getApplicationEvents } from "../../../api/applicationEventsApi";
-import { getCompanies } from "../../../api/companiesApi";
-import { getContactPersons } from "../../../api/contactPersonsApi";
-import { getJobApplications } from "../../../api/jobApplicationsApi";
 import type { DashboardStats } from "../models/DashboardStats";
+import { getDashboardStats } from "../../../api/dashboardApi";
 
 export function useDashboard() {
   const [stats, setStats] = useState<DashboardStats>({
     companyCount: 0,
-    applicationCount: 0,
-    eventCount: 0,
-    contactCount: 0,
+    jobApplicationCount: 0,
+    applicationEventCount: 0,
+    contactPersonCount: 0,
   });
 
   const [loading, setLoading] = useState(false);
@@ -24,18 +21,13 @@ export function useDashboard() {
     setLoading(true);
     setError(null);
 
-    Promise.all([
-      getCompanies(),
-      getJobApplications(),
-      getApplicationEvents(),
-      getContactPersons(0, 0),
-    ])
-      .then(([companies, applications, events, contacts]) => {
+    getDashboardStats()
+      .then((stats) => {
         setStats({
-          companyCount: companies.length,
-          applicationCount: applications.length,
-          eventCount: events.length,
-          contactCount: contacts.totalCount,
+          companyCount: stats.companyCount,
+          jobApplicationCount: stats.jobApplicationCount,
+          applicationEventCount: stats.applicationEventCount,
+          contactPersonCount: stats.contactPersonCount,
         });
       })
       .catch((error) => {

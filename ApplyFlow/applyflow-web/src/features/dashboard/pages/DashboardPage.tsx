@@ -11,9 +11,9 @@ export default function DashboardPage() {
 
   const dashboardCards = [
     { title: "Companies", value: stats.companyCount },
-    { title: "Job Applications", value: stats.applicationCount },
-    { title: "Application Events", value: stats.eventCount },
-    { title: "Contact Persons", value: stats.contactCount },
+    { title: "Job Applications", value: stats.applicationEventCount },
+    { title: "Application Events", value: stats.applicationEventCount },
+    { title: "Contact Persons", value: stats.contactPersonCount },
   ];
 
   if (loading) {
