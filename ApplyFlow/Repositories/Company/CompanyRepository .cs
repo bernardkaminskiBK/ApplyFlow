@@ -54,4 +54,9 @@ public class CompanyRepository : ICompanyRepository
         _dbContext.Companies.Remove(company);
         await _dbContext.SaveChangesAsync();
     }
+
+    public async Task<int> CountAsync()
+    {
+        return await _dbContext.Companies.CountAsync();
+    }
 }

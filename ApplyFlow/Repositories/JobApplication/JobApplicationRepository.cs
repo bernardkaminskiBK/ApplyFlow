@@ -51,4 +51,9 @@ public class JobApplicationRepository : IJobApplicationRepository
 
         await _dbContext.SaveChangesAsync();
     }
+
+    public async Task<int> CountAsync()
+    {
+        return await _dbContext.JobApplications.CountAsync();
+    }
 }

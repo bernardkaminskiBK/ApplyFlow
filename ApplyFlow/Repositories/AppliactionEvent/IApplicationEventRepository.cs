@@ -15,4 +15,6 @@ public interface IApplicationEventRepository
     Task UpdateAsync(ApplicationEvent applicationEvent);
 
     Task DeleteAsync(ApplicationEvent applicationEvent);
+
+    Task<int> CountAsync();
 }

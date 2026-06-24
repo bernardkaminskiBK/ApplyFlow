@@ -2,6 +2,7 @@ using ApplyFlow.Api.Data;
 using ApplyFlow.Api.Exceptions;
 using ApplyFlow.Api.Repositories;
 using ApplyFlow.Api.Services;
+using ApplyFlow.Api.Services.Dashboard;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -45,6 +46,7 @@ builder.Services.AddScoped<IApplicationEventRepository, ApplicationEventReposito
 builder.Services.AddScoped<IApplicationEventService, ApplicationEventService>();
 builder.Services.AddScoped<IContactPersonRepository, ContactPersonRepository>();
 builder.Services.AddScoped<IContactPersonService, ContactPersonService>();
+builder.Services.AddScoped<IDashboardService, DashboardService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

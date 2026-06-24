@@ -58,4 +58,9 @@ public class ContactPersonRepository : IContactPersonRepository
 
         await _dbContext.SaveChangesAsync();
     }
+
+    public async Task<int> CountAsync()
+    {
+        return await _dbContext.ContactPersons.CountAsync();
+    }
 }

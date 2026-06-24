@@ -14,4 +14,6 @@ public interface IContactPersonRepository
     Task UpdateAsync(ContactPerson contactPerson);
 
     Task DeleteAsync(ContactPerson contactPerson);
+
+    Task<int> CountAsync();
 }

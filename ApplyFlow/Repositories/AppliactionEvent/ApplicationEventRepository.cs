@@ -62,4 +62,9 @@ public class ApplicationEventRepository : IApplicationEventRepository
         _dbContext.ApplicationEvents.Remove(applicationEvent);
         await _dbContext.SaveChangesAsync();
     }
+
+    public async Task<int> CountAsync()
+    {
+        return await _dbContext.ApplicationEvents.CountAsync();
+    }
 }

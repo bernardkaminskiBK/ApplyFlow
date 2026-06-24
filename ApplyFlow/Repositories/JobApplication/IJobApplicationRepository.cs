@@ -13,4 +13,6 @@ public interface IJobApplicationRepository
     Task UpdateAsync(JobApplication application);
 
     Task DeleteAsync(JobApplication application);
+
+    Task<int> CountAsync();
 }
