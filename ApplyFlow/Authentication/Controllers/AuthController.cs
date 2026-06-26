@@ -1,5 +1,5 @@
 ﻿using ApplyFlow.Api.Authentication.Dtos;
-using ApplyFlow.Api.Authentication.Services;
+using ApplyFlow.Api.Authentication.Services.Auth;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApplyFlow.Api.Authentication.Controllers;
@@ -25,11 +25,11 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("login")]
-    public async Task<ActionResult> Login(LoginRequest loginRequest)
+    public async Task<ActionResult<AuthResponse>> Login(LoginRequest loginRequest)
     {
-        await _authService.LoginAsync(loginRequest);
+        var authResponse = await _authService.LoginAsync(loginRequest);
 
-        return Ok();
+        return Ok(authResponse);
     }
 
 }

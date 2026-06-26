@@ -1,20 +1,22 @@
-﻿namespace ApplyFlow.Api.Authentication.Service;
+﻿namespace ApplyFlow.Api.Authentication.Services.Auth;
 
 using ApplyFlow.Api.Authentication.Dtos;
 using ApplyFlow.Api.Authentication.Exceptions;
 using ApplyFlow.Api.Authentication.Models;
 using ApplyFlow.Api.Authentication.Repository;
-using ApplyFlow.Api.Authentication.Services;
+using ApplyFlow.Api.Authentication.Services.Jwt;
 using Microsoft.AspNetCore.Identity;
 
 
 public class AuthService : IAuthService
 {
     private readonly IAppUserRepository _appUserRepository;
+    private readonly IJwtTokenService _jwtTokenService;
 
-    public AuthService(IAppUserRepository appUserRepository)
+    public AuthService(IAppUserRepository appUserRepository, IJwtTokenService jwtTokenService)
     {
         _appUserRepository = appUserRepository;
+        _jwtTokenService = jwtTokenService;
     }
 
     public async Task RegisterAsync(RegisterRequest request)
@@ -42,7 +44,7 @@ public class AuthService : IAuthService
         await _appUserRepository.CreateAsync(user);
     }
 
-    public async Task LoginAsync(LoginRequest request)
+    public async Task<AuthResponse> LoginAsync(LoginRequest request)
     {
         var user = await _appUserRepository.GetByEmailAsync(request.Email);
 
@@ -63,6 +65,13 @@ public class AuthService : IAuthService
         {
             throw new InvalidCredentialsException();
         }
+
+        var token = _jwtTokenService.CreateToken(user);
+
+        return new AuthResponse
+        {
+            Token = token
+        };
     }
 
 }
