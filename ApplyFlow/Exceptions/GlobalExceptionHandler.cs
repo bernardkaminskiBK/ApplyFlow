@@ -1,4 +1,5 @@
-﻿using ApplyFlow.Api.Dtos.Common;
+﻿using ApplyFlow.Api.Authentication.Exceptions;
+using ApplyFlow.Api.Dtos.Common;
 using Microsoft.AspNetCore.Diagnostics;
 
 namespace ApplyFlow.Api.Exceptions;
@@ -12,6 +13,8 @@ public class GlobalExceptionHandler : IExceptionHandler
             CompanyAlreadyExistsException => (StatusCodes.Status409Conflict, exception.Message),
             CompanyNotFoundException => (StatusCodes.Status404NotFound, exception.Message),
             JobApplicationNotFoundException => (StatusCodes.Status404NotFound, exception.Message),
+            EmailAlreadyExistsException => (StatusCodes.Status409Conflict, exception.Message),
+            InvalidCredentialsException => (StatusCodes.Status401Unauthorized, exception.Message),
             _ => (StatusCodes.Status500InternalServerError, "An unexpected error occurred.")
         };
 

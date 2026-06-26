@@ -1,3 +1,6 @@
+using ApplyFlow.Api.Authentication.Repository;
+using ApplyFlow.Api.Authentication.Service;
+using ApplyFlow.Api.Authentication.Services;
 using ApplyFlow.Api.Data;
 using ApplyFlow.Api.Exceptions;
 using ApplyFlow.Api.Repositories;
@@ -47,6 +50,9 @@ builder.Services.AddScoped<IApplicationEventService, ApplicationEventService>();
 builder.Services.AddScoped<IContactPersonRepository, ContactPersonRepository>();
 builder.Services.AddScoped<IContactPersonService, ContactPersonService>();
 builder.Services.AddScoped<IDashboardService, DashboardService>();
+
+builder.Services.AddScoped<IAppUserRepository, AppUserRepository>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

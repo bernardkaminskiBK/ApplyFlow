@@ -1,4 +1,5 @@
-﻿using ApplyFlow.Api.Enums;
+﻿using ApplyFlow.Api.Authentication.Models;
+using ApplyFlow.Api.Enums;
 using ApplyFlow.Api.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,6 +15,7 @@ public class ApplyFlowDbContext : DbContext
     public DbSet<JobApplication> JobApplications => Set<JobApplication>();
     public DbSet<ContactPerson> ContactPersons => Set<ContactPerson>();
     public DbSet<ApplicationEvent> ApplicationEvents => Set<ApplicationEvent>();
+    public DbSet<AppUser> AppUsers => Set<AppUser>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
