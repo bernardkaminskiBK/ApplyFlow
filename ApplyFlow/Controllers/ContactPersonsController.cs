@@ -1,10 +1,12 @@
 ﻿using ApplyFlow.Api.Dtos.ContactPerson;
 using ApplyFlow.Api.Models.Shared;
 using ApplyFlow.Api.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApplyFlow.Api.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/contact-persons")]
 public class ContactPersonsController : ControllerBase

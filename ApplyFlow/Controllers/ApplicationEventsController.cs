@@ -1,9 +1,11 @@
 ﻿using ApplyFlow.Api.Dtos.ApplicationEvents;
 using ApplyFlow.Api.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApplyFlow.Api.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/application-events")]
 public class ApplicationEventsController : ControllerBase

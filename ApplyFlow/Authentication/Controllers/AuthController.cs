@@ -1,9 +1,11 @@
 ﻿using ApplyFlow.Api.Authentication.Dtos;
 using ApplyFlow.Api.Authentication.Services.Auth;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApplyFlow.Api.Authentication.Controllers;
 
+[AllowAnonymous]
 [ApiController]
 [Route("api/auth")]
 public class AuthController : ControllerBase

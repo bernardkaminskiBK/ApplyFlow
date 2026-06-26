@@ -1,9 +1,11 @@
 ﻿using ApplyFlow.Api.Dtos.Dashboard;
 using ApplyFlow.Api.Services.Dashboard;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApplyFlow.Api.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/dashboard")]
 public class DashboardController : ControllerBase

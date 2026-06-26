@@ -1,9 +1,11 @@
 ﻿using ApplyFlow.Api.Dtos.JobApplications;
 using ApplyFlow.Api.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApplyFlow.Api.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/job-applications")]
 public class JobApplicationsController : ControllerBase
