@@ -50,7 +50,7 @@ public class AuthService : IAuthService
 
         if (user is null)
         {
-            throw new EmailAlreadyExistsException();
+            throw new InvalidCredentialsException();
         }
 
         var passwordHasher = new PasswordHasher<AppUser>();
