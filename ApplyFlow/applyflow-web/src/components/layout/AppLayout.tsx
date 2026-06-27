@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 import {
   AppBar,
   Box,
@@ -14,6 +14,7 @@ type AppLayoutProps = {
 };
 
 export default function AppLayout({ children }: AppLayoutProps) {
+  const navigate = useNavigate();
   return (
     <Box>
       <AppBar position="static">
@@ -44,6 +45,17 @@ export default function AppLayout({ children }: AppLayoutProps) {
 
           <Button color="inherit" component={RouterLink} to="/contact-persons">
             Contacts
+          </Button>
+
+          <Button
+            color="inherit"
+            sx={{ ml: "auto", fontWeight: "bold" }}
+            onClick={() => {
+              localStorage.removeItem("token");
+              navigate("/login");
+            }}
+          >
+            Log out
           </Button>
         </Toolbar>
       </AppBar>

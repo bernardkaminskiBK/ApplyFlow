@@ -9,36 +9,97 @@ import ContactPersonDetailsPage from "./features/contactPersons/pages/ContactPer
 import CompaniesPage from "./features/companies/pages/CompaniesPage";
 import CompanyDetailsPage from "./features/companies/pages/CompanyDetailsPage";
 import JobApplicationsPage from "./features/jobApplications/pages/JobApplicationsPage";
+import LoginPage from "./features/auth/pages/LoginPage";
+import ProtectedRoute from "./features/auth/components/ProtectedRoute";
+import RegisterPage from "./features/auth/pages/RegisterPage";
 
 export default function App() {
   return (
     <BrowserRouter>
       <AppLayout>
         <Routes>
-          <Route path="/" element={<DashboardPage />} />
+          <Route path="/login" element={<LoginPage />} />
 
-          <Route path="/companies" element={<CompaniesPage />} />
-          <Route path="/companies/:id" element={<CompanyDetailsPage />} />
+          <Route path="/register" element={<RegisterPage />} />
 
-          <Route path="/job-applications" element={<JobApplicationsPage />} />
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <DashboardPage />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/companies"
+            element={
+              <ProtectedRoute>
+                <CompaniesPage />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/companies/:id"
+            element={
+              <ProtectedRoute>
+                <CompanyDetailsPage />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/job-applications"
+            element={
+              <ProtectedRoute>
+                <JobApplicationsPage />
+              </ProtectedRoute>
+            }
+          />
+
           <Route
             path="/job-applications/:id"
-            element={<JobApplicationDetailsPage />}
+            element={
+              <ProtectedRoute>
+                <JobApplicationDetailsPage />
+              </ProtectedRoute>
+            }
           />
 
           <Route
             path="/application-events"
-            element={<ApplicationEventsPage />}
+            element={
+              <ProtectedRoute>
+                <ApplicationEventsPage />
+              </ProtectedRoute>
+            }
           />
           <Route
             path="/application-events/:id"
-            element={<ApplicationEventDetailsPage />}
+            element={
+              <ProtectedRoute>
+                <ApplicationEventDetailsPage />
+              </ProtectedRoute>
+            }
           />
 
-          <Route path="/contact-persons" element={<ContactPersonsPage />} />
+          <Route
+            path="/contact-persons"
+            element={
+              <ProtectedRoute>
+                <ContactPersonsPage />
+              </ProtectedRoute>
+            }
+          />
+
           <Route
             path="/contact-persons/:id"
-            element={<ContactPersonDetailsPage />}
+            element={
+              <ProtectedRoute>
+                <ContactPersonDetailsPage />
+              </ProtectedRoute>
+            }
           />
         </Routes>
       </AppLayout>
