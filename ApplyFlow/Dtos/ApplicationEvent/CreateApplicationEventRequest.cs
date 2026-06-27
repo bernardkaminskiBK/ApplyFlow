@@ -5,7 +5,7 @@ namespace ApplyFlow.Api.Dtos.ApplicationEvents;
 
 public class CreateApplicationEventRequest
 {
-    [Range(1, int.MaxValue)]
+    [Range(1, int.MaxValue, ErrorMessage = "The Job Application field is required.")]
     public int JobApplicationId { get; set; }
 
     public ApplicationEventType EventType { get; set; }

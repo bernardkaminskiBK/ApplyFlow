@@ -4,7 +4,7 @@ namespace ApplyFlow.Api.Dtos.ContactPerson;
 
 public class CreateContactPersonRequest
 {
-    [Range(1, int.MaxValue)]
+    [Range(1, int.MaxValue, ErrorMessage = "The Company field is required.")]
     public int CompanyId { get; set; }
 
     [Required]

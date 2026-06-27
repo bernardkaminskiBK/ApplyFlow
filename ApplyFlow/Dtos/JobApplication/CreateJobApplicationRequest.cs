@@ -5,7 +5,7 @@ namespace ApplyFlow.Api.Dtos.JobApplications;
 
 public class CreateJobApplicationRequest
 {
-    [Range(1, int.MaxValue)]
+    [Range(1, int.MaxValue, ErrorMessage = "The Company field is required.")]
     public int CompanyId { get; set; }
 
     [Required]
