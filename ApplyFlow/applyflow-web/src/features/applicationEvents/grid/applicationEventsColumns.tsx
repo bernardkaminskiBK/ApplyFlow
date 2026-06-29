@@ -1,8 +1,8 @@
 import { Button, Chip, Stack } from "@mui/material";
 import type { GridColDef } from "@mui/x-data-grid";
-import { Link } from "react-router-dom";
 import type { ApplicationEvent } from "../models/applicationEvent";
 import { getEventTypeText } from "../utils/applicationEventHelpers";
+import AppLink from "../../../components/common/AppLink";
 
 export function createApplicationEventColumns(
   onEdit: (event: ApplicationEvent) => void,
@@ -25,9 +25,9 @@ export function createApplicationEventColumns(
       flex: 1,
       valueGetter: (_value, row) => getEventTypeText(row.eventType),
       renderCell: (params) => (
-        <Link to={`/application-events/${params.row.id}`}>
+        <AppLink to={`/application-events/${params.row.id}`}>
           <Chip label={getEventTypeText(params.row.eventType)} size="small" />
-        </Link>
+        </AppLink>
       ),
     },
     {

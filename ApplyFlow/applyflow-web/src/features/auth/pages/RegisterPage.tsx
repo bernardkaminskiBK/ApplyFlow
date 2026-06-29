@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link as RouterLink, useNavigate } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 import {
   Alert,
   Box,
@@ -10,35 +10,24 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { register } from "../../../api/authApi";
 import type { AuthFormErrors } from "../models/authFormErrors";
+import { useAuth } from "../context/AuthContext";
 
 export default function RegisterPage() {
-  const navigate = useNavigate();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<AuthFormErrors | null>(null);
 
+  const { register } = useAuth();
+
   async function handleRegister() {
     try {
       setLoading(true);
       setErrors(null);
 
-      await register({
-        email,
-        password,
-      });
-
-      navigate("/login", {
-        replace: true,
-        state: {
-          successMessage:
-            "Registration completed successfully. Please sign in.",
-        },
-      });
+      await register(email, password);
     } catch (error: any) {
       const validationErrors = error.response?.data?.errors;
       const registerErrorMessage = error.response?.data?.message || "";

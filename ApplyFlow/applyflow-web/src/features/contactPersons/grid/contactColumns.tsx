@@ -1,7 +1,7 @@
 import { Button, Stack } from "@mui/material";
 import type { GridColDef } from "@mui/x-data-grid";
-import { Link } from "react-router-dom";
 import type { ContactPerson } from "../models/contactPerson";
+import AppLink from "../../../components/common/AppLink";
 
 export function createContactPersonColumns(
   onEdit: (contact: ContactPerson) => void,
@@ -18,7 +18,9 @@ export function createContactPersonColumns(
       headerName: "Name",
       flex: 1,
       renderCell: (params) => (
-        <Link to={`/contact-persons/${params.row.id}`}>{params.row.name}</Link>
+        <AppLink to={`/contact-persons/${params.row.id}`}>
+          {params.row.name}
+        </AppLink>
       ),
     },
     {

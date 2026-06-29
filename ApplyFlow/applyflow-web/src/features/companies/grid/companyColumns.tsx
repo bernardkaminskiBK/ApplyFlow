@@ -1,7 +1,7 @@
 import { Button, Stack } from "@mui/material";
 import type { GridColDef } from "@mui/x-data-grid";
 import type { Company } from "../models/company";
-import { Link } from "react-router-dom";
+import AppLink from "../../../components/common/AppLink";
 
 export function createCompanyColumns(
   onEdit: (company: Company) => void,
@@ -13,7 +13,7 @@ export function createCompanyColumns(
       headerName: "Name",
       flex: 1,
       renderCell: (params) => (
-        <Link to={`/companies/${params.row.id}`}>{params.value}</Link>
+        <AppLink to={`/companies/${params.row.id}`}>{params.value}</AppLink>
       ),
     },
     {

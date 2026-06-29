@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link as RouterLink, useLocation, useNavigate } from "react-router-dom";
+import { Link as RouterLink, useLocation } from "react-router-dom";
 import {
   Alert,
   Box,
@@ -10,12 +10,11 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { login } from "../../../api/authApi";
 import LoadingSpinner from "../../../components/common/LoadingSpinner";
 import type { AuthFormErrors } from "../models/authFormErrors";
+import { useAuth } from "../context/AuthContext";
 
 export default function LoginPage() {
-  const navigate = useNavigate();
   const successMessage = useLocation().state?.successMessage;
 
   const [email, setEmail] = useState("");
@@ -24,19 +23,14 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<AuthFormErrors | null>(null);
 
+  const { login } = useAuth();
+
   async function handleLogin() {
     try {
       setLoading(true);
       setErrors(null);
 
-      const response = await login({
-        email,
-        password,
-      });
-
-      localStorage.setItem("token", response.token);
-
-      navigate("/");
+      await login(email, password);
     } catch (error: any) {
       const validationErrors = error.response?.data?.errors;
       const registerErrorMessage = error.response?.data?.message || "";

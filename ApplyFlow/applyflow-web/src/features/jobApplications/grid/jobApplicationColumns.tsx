@@ -1,12 +1,12 @@
 import { Button, Chip, Stack } from "@mui/material";
 import type { GridColDef } from "@mui/x-data-grid";
 import type { JobApplication } from "../models/jobApplication";
-import { Link } from "react-router-dom";
 import {
   getSourceText,
   getStatusInfo,
   getWorkModeText,
 } from "../utils/jobApplicationHelpers";
+import AppLink from "../../../components/common/AppLink";
 
 export function createJobApplicationColumns(
   onEdit: (jobApplication: JobApplication) => void,
@@ -18,7 +18,9 @@ export function createJobApplicationColumns(
       headerName: "Company",
       flex: 1,
       renderCell: (params) => (
-        <Link to={`/job-applications/${params.row.id}`}>{params.value}</Link>
+        <AppLink to={`/job-applications/${params.row.id}`}>
+          {params.value}
+        </AppLink>
       ),
     },
     {
