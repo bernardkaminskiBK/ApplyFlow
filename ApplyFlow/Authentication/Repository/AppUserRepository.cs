@@ -25,4 +25,24 @@ public class AppUserRepository : IAppUserRepository
 
         await _dbContext.SaveChangesAsync();
     }
+
+    public async Task<List<AppUser>> GetAllAsync()
+    {
+        return await _dbContext.AppUsers
+            .AsNoTracking()
+            .ToListAsync();
+    }
+
+    public async Task<AppUser?> GetByIdAsync(int id)
+    {
+        return await _dbContext.AppUsers
+            .AsNoTracking()
+            .FirstOrDefaultAsync(user => user.Id == id);
+    }
+
+    public async Task UpdateAsync(AppUser user)
+    {
+        _dbContext.AppUsers.Update(user);
+        await _dbContext.SaveChangesAsync();
+    }
 }

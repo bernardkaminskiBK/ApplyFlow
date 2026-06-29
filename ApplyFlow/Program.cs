@@ -6,6 +6,7 @@ using ApplyFlow.Api.Data;
 using ApplyFlow.Api.Exceptions;
 using ApplyFlow.Api.Repositories;
 using ApplyFlow.Api.Services;
+using ApplyFlow.Api.Services.Admin;
 using ApplyFlow.Api.Services.Dashboard;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -59,6 +60,7 @@ builder.Services.AddScoped<IDashboardService, DashboardService>();
 builder.Services.AddScoped<IAppUserRepository, AppUserRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
+builder.Services.AddScoped<IAdminService, AdminService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
