@@ -1,8 +1,8 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login as loginRequest } from "../api/authApi";
 import { register as registerRequest } from "../api/authApi";
-import { isTokenExpired } from "../utils/authToken";
+import { getTokenRemainingTime, isTokenExpired } from "../utils/authToken";
 
 type AuthContextValue = {
   token: string | null;
@@ -59,6 +59,25 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
     navigate("/login", { replace: true });
   }
+
+  useEffect(() => {
+    if (!token) return;
+
+    const remainingTime = getTokenRemainingTime(token);
+
+    if (remainingTime <= 0) {
+      logout();
+      return;
+    }
+
+    const timeoutId = setTimeout(() => {
+      logout();
+    }, remainingTime);
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [token]);
 
   return (
     <AuthContext.Provider

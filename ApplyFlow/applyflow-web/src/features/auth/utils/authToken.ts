@@ -4,10 +4,18 @@ type JwtPayload = {
   exp: number;
 };
 
+function decodeToken(token: string) {
+  return jwtDecode<JwtPayload>(token);
+}
+
+export function getTokenExpirationTime(token: string) {
+  return decodeToken(token).exp * 1000;
+}
+
 export function isTokenExpired(token: string) {
-  const decodedToken = jwtDecode<JwtPayload>(token);
+  return Date.now() >= getTokenExpirationTime(token);
+}
 
-  const expirationTime = decodedToken.exp * 1000;
-
-  return Date.now() >= expirationTime;
+export function getTokenRemainingTime(token: string) {
+  return getTokenExpirationTime(token) - Date.now();
 }

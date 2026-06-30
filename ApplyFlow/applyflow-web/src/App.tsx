@@ -13,7 +13,7 @@ import LoginPage from "./features/auth/pages/LoginPage";
 import ProtectedRoute from "./features/auth/components/ProtectedRoute";
 import RegisterPage from "./features/auth/pages/RegisterPage";
 import { AuthProvider } from "./features/auth/context/AuthContext";
-import { AppThemeProvider } from "./features/theme/context/ThemeContext";
+import { AppThemeProvider } from "./components/layout/theme/context/ThemeContext";
 import { Box } from "@mui/material";
 import AdminPage from "./features/admin/pages/AdminPage";
 

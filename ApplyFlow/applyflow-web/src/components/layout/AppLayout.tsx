@@ -9,7 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useAuth } from "../../features/auth/context/AuthContext";
-import { useAppTheme } from "../../features/theme/context/ThemeContext";
+import { useAppTheme } from "./theme/context/ThemeContext";
 
 type AppLayoutProps = {
   children: ReactNode;
