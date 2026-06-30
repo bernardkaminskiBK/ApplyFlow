@@ -2,11 +2,17 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login as loginRequest } from "../api/authApi";
 import { register as registerRequest } from "../api/authApi";
-import { getTokenRemainingTime, isTokenExpired } from "../utils/authToken";
+import {
+  getTokenRemainingTime,
+  getUserFromToken,
+  isTokenExpired,
+  type AuthUser,
+} from "../utils/authToken";
 
 type AuthContextValue = {
   token: string | null;
   isAuthenticated: boolean;
+  user: AuthUser | null;
   login: (email: string, password: string) => Promise<void>;
   register: (email: string, password: string) => Promise<void>;
   logout: () => void;
@@ -25,7 +31,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
     localStorage.getItem("token"),
   );
 
-  const isAuthenticated = token != null && !isTokenExpired(token);
+  const user = token && !isTokenExpired(token) ? getUserFromToken(token) : null;
+  const isAuthenticated = user != null;
 
   async function login(email: string, password: string) {
     const response = await loginRequest({
@@ -84,6 +91,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       value={{
         token,
         isAuthenticated,
+        user,
         login,
         register,
         logout,

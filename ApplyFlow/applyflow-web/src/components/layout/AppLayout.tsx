@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { Link as RouterLink } from "react-router-dom";
 import {
   AppBar,
+  Avatar,
   Box,
   Button,
   Container,
@@ -16,7 +17,7 @@ type AppLayoutProps = {
 };
 
 export default function AppLayout({ children }: AppLayoutProps) {
-  const { logout } = useAuth();
+  const { isAuthenticated, user, logout } = useAuth();
   const { darkMode, toggleTheme } = useAppTheme();
   return (
     <Box>
@@ -50,9 +51,20 @@ export default function AppLayout({ children }: AppLayoutProps) {
             Contacts
           </Button>
 
-          <Button color="inherit" component={RouterLink} to="/admin">
-            Admin
-          </Button>
+          {user?.role === "Admin" && (
+            <Button color="inherit" component={RouterLink} to="/admin">
+              Admin
+            </Button>
+          )}
+
+          {isAuthenticated && (
+            <>
+              <Typography variant="body2" sx={{ ml: "auto", mr: 2 }}>
+                {user?.email} ({user?.role})
+              </Typography>
+              <Avatar>{user?.role === "Admin" ? "A" : "U"}</Avatar>
+            </>
+          )}
 
           <Button
             color="inherit"
