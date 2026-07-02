@@ -1,4 +1,5 @@
-﻿using ApplyFlow.Api.Dtos.Company;
+﻿using ApplyFlow.Api.Authentication.Services.CurrentUser;
+using ApplyFlow.Api.Dtos.Company;
 using ApplyFlow.Api.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -11,16 +12,18 @@ namespace ApplyFlow.Api.Controllers;
 public class CompaniesController : ControllerBase
 {
     private readonly ICompanyService _companyService;
+    private readonly ICurrentUserService _currentUserService;
 
-    public CompaniesController(ICompanyService companyService)
+    public CompaniesController(ICompanyService companyService, ICurrentUserService currentUserService)
     {
         _companyService = companyService;
+        _currentUserService = currentUserService;
     }
 
     [HttpGet]
     public async Task<ActionResult<List<CompanyResponse>>> GetAll()
     {
-        var companies = await _companyService.GetAllAsync();
+        var companies = await _companyService.GetAllAsync(_currentUserService.UserId);
 
         return Ok(companies);
     }
@@ -28,7 +31,7 @@ public class CompaniesController : ControllerBase
     [HttpGet("{id:int}")]
     public async Task<ActionResult<CompanyResponse>> GetById(int id)
     {
-        var company = await _companyService.GetByIdAsync(id);
+        var company = await _companyService.GetByIdAsync(id, _currentUserService.UserId);
 
         return company is null ? NotFound() : Ok(company);
     }
@@ -36,7 +39,7 @@ public class CompaniesController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<CompanyResponse>> Create(CreateCompanyRequest request)
     {
-        var company = await _companyService.CreateAsync(request);
+        var company = await _companyService.CreateAsync(request, _currentUserService.UserId);
 
         return CreatedAtAction(nameof(GetById), new { id = company.Id }, company);
     }
@@ -44,7 +47,7 @@ public class CompaniesController : ControllerBase
     [HttpPut("{id:int}")]
     public async Task<IActionResult> Update(int id, UpdateCompanyRequest request)
     {
-        var updated = await _companyService.UpdateAsync(id, request);
+        var updated = await _companyService.UpdateAsync(id, request, _currentUserService.UserId);
 
         return !updated ? NotFound() : NoContent();
     }
@@ -52,7 +55,7 @@ public class CompaniesController : ControllerBase
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> Delete(int id)
     {
-        var deleted = await _companyService.DeleteAsync(id);
+        var deleted = await _companyService.DeleteAsync(id, _currentUserService.UserId);
 
         return !deleted ? NotFound() : NoContent();
     }

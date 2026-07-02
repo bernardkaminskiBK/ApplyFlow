@@ -14,13 +14,20 @@ public class CompanyService : ICompanyService
         _companyRepository = companyRepository;
     }
 
-    public async Task<List<CompanyResponse>> GetAllAsync()
+    public async Task<List<CompanyResponse>> GetAllAsync(int appUserId)
     {
-        var companies = await _companyRepository.GetAllAsync();
+        var companies = await _companyRepository.GetAllAsync(appUserId);
 
         return companies
             .Select(MapToResponse)
             .ToList();
+    }
+
+    public async Task<CompanyResponse?> GetByIdAsync(int id, int appUserId)
+    {
+        var company = await _companyRepository.GetByIdAsync(id, appUserId);
+
+        return company is null ? null : MapToResponse(company);
     }
 
     public async Task<CompanyResponse?> GetByIdAsync(int id)
@@ -30,9 +37,10 @@ public class CompanyService : ICompanyService
         return company is null ? null : MapToResponse(company);
     }
 
-    public async Task<CompanyResponse> CreateAsync(CreateCompanyRequest request)
+
+    public async Task<CompanyResponse> CreateAsync(CreateCompanyRequest request, int userId)
     {
-        var existingCompany = await _companyRepository.GetByNameAsync(request.Name);
+        var existingCompany = await _companyRepository.GetByNameAsync(request.Name, userId);
 
         if (existingCompany is not null)
         {
@@ -44,7 +52,8 @@ public class CompanyService : ICompanyService
             Name = request.Name,
             City = request.City,
             Website = request.Website,
-            Note = request.Note
+            Note = request.Note,
+            AppUserId = userId,
         };
 
         var createdCompany = await _companyRepository.CreateAsync(company);
@@ -52,9 +61,9 @@ public class CompanyService : ICompanyService
         return MapToResponse(createdCompany);
     }
 
-    public async Task<bool> UpdateAsync(int id, UpdateCompanyRequest request)
+    public async Task<bool> UpdateAsync(int id, UpdateCompanyRequest request, int userId)
     {
-        var company = await _companyRepository.GetByIdAsync(id);
+        var company = await _companyRepository.GetByIdAsync(id, userId);
 
         if (company is null)
         {
@@ -71,9 +80,9 @@ public class CompanyService : ICompanyService
         return true;
     }
 
-    public async Task<bool> DeleteAsync(int id)
+    public async Task<bool> DeleteAsync(int id, int userId)
     {
-        var company = await _companyRepository.GetByIdAsync(id);
+        var company = await _companyRepository.GetByIdAsync(id, userId);
 
         if (company is null)
         {

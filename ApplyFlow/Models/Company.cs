@@ -1,4 +1,6 @@
-﻿namespace ApplyFlow.Api.Models
+﻿using ApplyFlow.Api.Authentication.Models;
+
+namespace ApplyFlow.Api.Models
 {
     public class Company
     {
@@ -8,6 +10,9 @@
         public string? City { get; set; }
         public string? Website { get; set; }
         public string? Note { get; set; }
+
+        public int AppUserId { get; set; }
+        public AppUser AppUser { get; set; } = null!;
 
         public List<JobApplication> JobApplications { get; set; } = [];
         public List<ContactPerson> ContactPersons { get; set; } = [];

@@ -1,32 +1,22 @@
-﻿using ApplyFlow.Api.Dtos.Dashboard;
+﻿using ApplyFlow.Api.Authentication.Services.CurrentUser;
+using ApplyFlow.Api.Dtos.Dashboard;
 using ApplyFlow.Api.Repositories;
 
 namespace ApplyFlow.Api.Services.Dashboard
 {
-    public class DashboardService : IDashboardService
+    public class DashboardService(
+          IJobApplicationRepository _jobApplicationRepository,
+          IApplicationEventRepository _applicationEventRepository,
+          IContactPersonRepository _contactPersonRepository,
+          ICompanyRepository _companyRepository,
+          ICurrentUserService _currentUserService
+    ) : IDashboardService
     {
-        private readonly IJobApplicationRepository _jobApplicationRepository;
-        private readonly IApplicationEventRepository _applicationEventRepository;
-        private readonly IContactPersonRepository _contactPersonRepository;
-        private readonly ICompanyRepository _companyRepository;
-
-        public DashboardService(
-            IJobApplicationRepository jobApplicationRepository,
-            IApplicationEventRepository applicationEventRepository,
-            IContactPersonRepository contactPersonRepository,
-            ICompanyRepository companyRepository)
-        {
-            _jobApplicationRepository = jobApplicationRepository;
-            _applicationEventRepository = applicationEventRepository;
-            _contactPersonRepository = contactPersonRepository;
-            _companyRepository = companyRepository;
-        }
-
         public async Task<DashboardStatsResponse> GetStatsAsync()
         {
             return new DashboardStatsResponse
             {
-                CompanyCount = await _companyRepository.CountAsync(),
+                CompanyCount = await _companyRepository.CountAsync(_currentUserService.UserId),
                 JobApplicationCount = await _jobApplicationRepository.CountAsync(),
                 ApplicationEventCount = await _applicationEventRepository.CountAsync(),
                 ContactPersonCount = await _contactPersonRepository.CountAsync()

@@ -4,9 +4,10 @@ namespace ApplyFlow.Api.Services;
 
 public interface ICompanyService
 {
-    Task<List<CompanyResponse>> GetAllAsync();
+    Task<List<CompanyResponse>> GetAllAsync(int appUserId);
     Task<CompanyResponse?> GetByIdAsync(int id);
-    Task<CompanyResponse> CreateAsync(CreateCompanyRequest request);
-    Task<bool> UpdateAsync(int id, UpdateCompanyRequest request);
-    Task<bool> DeleteAsync(int id);
+    Task<CompanyResponse?> GetByIdAsync(int id, int userId);
+    Task<CompanyResponse> CreateAsync(CreateCompanyRequest request, int appUserId);
+    Task<bool> UpdateAsync(int id, UpdateCompanyRequest request, int appUserId);
+    Task<bool> DeleteAsync(int id, int appUserId);
 }

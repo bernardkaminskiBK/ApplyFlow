@@ -1,6 +1,7 @@
 using ApplyFlow.Api.Authentication.Repository;
 using ApplyFlow.Api.Authentication.Services;
 using ApplyFlow.Api.Authentication.Services.Auth;
+using ApplyFlow.Api.Authentication.Services.CurrentUser;
 using ApplyFlow.Api.Authentication.Services.Jwt;
 using ApplyFlow.Api.Data;
 using ApplyFlow.Api.Exceptions;
@@ -61,6 +62,9 @@ builder.Services.AddScoped<IAppUserRepository, AppUserRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
 builder.Services.AddScoped<IAdminService, AdminService>();
+
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

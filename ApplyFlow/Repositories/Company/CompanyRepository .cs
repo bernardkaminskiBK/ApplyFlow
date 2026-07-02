@@ -13,10 +13,11 @@ public class CompanyRepository : ICompanyRepository
         _dbContext = dbContext;
     }
 
-    public async Task<List<Company>> GetAllAsync()
+    public async Task<List<Company>> GetAllAsync(int appUserId)
     {
         return await _dbContext.Companies
             .AsNoTracking()
+            .Where(company => company.AppUserId == appUserId)
             .OrderBy(company => company.Name)
             .ToListAsync();
     }
@@ -28,11 +29,18 @@ public class CompanyRepository : ICompanyRepository
             .FirstOrDefaultAsync(company => company.Id == id);
     }
 
-    public async Task<Company?> GetByNameAsync(string name)
+    public async Task<Company?> GetByIdAsync(int id, int appUserId)
     {
         return await _dbContext.Companies
             .AsNoTracking()
-            .FirstOrDefaultAsync(company => company.Name == name);
+            .FirstOrDefaultAsync(company => company.Id == id && company.AppUserId == appUserId);
+    }
+
+    public async Task<Company?> GetByNameAsync(string name, int appUserId)
+    {
+        return await _dbContext.Companies
+            .AsNoTracking()
+            .FirstOrDefaultAsync(company => company.Name == name && company.AppUserId == appUserId);
     }
 
     public async Task<Company> CreateAsync(Company company)
@@ -55,8 +63,8 @@ public class CompanyRepository : ICompanyRepository
         await _dbContext.SaveChangesAsync();
     }
 
-    public async Task<int> CountAsync()
+    public async Task<int> CountAsync(int appUserId)
     {
-        return await _dbContext.Companies.CountAsync();
+        return await _dbContext.Companies.CountAsync(company => company.AppUserId == appUserId);
     }
 }

@@ -4,11 +4,13 @@ namespace ApplyFlow.Api.Repositories;
 
 public interface ICompanyRepository
 {
-    Task<List<Company>> GetAllAsync();
+    Task<List<Company>> GetAllAsync(int appUserId);
 
     Task<Company?> GetByIdAsync(int id);
 
-    Task<Company?> GetByNameAsync(string name);
+    Task<Company?> GetByIdAsync(int id, int appUserId);
+
+    Task<Company?> GetByNameAsync(string name, int appUserId);
 
     Task<Company> CreateAsync(Company company);
 
@@ -16,5 +18,5 @@ public interface ICompanyRepository
 
     Task DeleteAsync(Company company);
 
-    Task<int> CountAsync();
+    Task<int> CountAsync(int appUserId);
 }
