@@ -30,13 +30,6 @@ public class JobApplicationService : IJobApplicationService
         return application is null ? null : MapToResponse(application);
     }
 
-    public async Task<JobApplicationResponse?> GetByIdAsync(int id)
-    {
-        var application = await _jobApplicationRepository.GetByIdAsync(id);
-
-        return application is null ? null : MapToResponse(application);
-    }
-
     public async Task<JobApplicationResponse> CreateAsync(CreateJobApplicationRequest request, int appUserId)
     {
         var company = await _companyRepository.GetByIdAsync(request.CompanyId, appUserId);

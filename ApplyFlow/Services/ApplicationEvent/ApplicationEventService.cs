@@ -16,9 +16,9 @@ public class ApplicationEventService : IApplicationEventService
         _jobApplicationRepository = jobApplicationRepository;
     }
 
-    public async Task<List<ApplicationEventResponse>> GetAllAsync()
+    public async Task<List<ApplicationEventResponse>> GetAllAsync(int appUserId)
     {
-        var events = await _applicationEventRepository.GetAllAsync();
+        var events = await _applicationEventRepository.GetAllAsync(appUserId);
 
         return events.Select(MapToResponse).ToList();
     }
@@ -30,16 +30,16 @@ public class ApplicationEventService : IApplicationEventService
         return events.Select(MapToResponse).ToList();
     }
 
-    public async Task<ApplicationEventResponse?> GetByIdAsync(int id)
+    public async Task<ApplicationEventResponse?> GetByIdAsync(int id, int appUserId)
     {
-        var applicationEvent = await _applicationEventRepository.GetByIdAsync(id);
+        var applicationEvent = await _applicationEventRepository.GetByIdAsync(id, appUserId);
 
         return applicationEvent is null ? null : MapToResponse(applicationEvent);
     }
 
-    public async Task<ApplicationEventResponse> CreateAsync(CreateApplicationEventRequest request)
+    public async Task<ApplicationEventResponse> CreateAsync(CreateApplicationEventRequest request, int appUserId)
     {
-        var jobApplication = await _jobApplicationRepository.GetByIdAsync(request.JobApplicationId);
+        var jobApplication = await _jobApplicationRepository.GetByIdAsync(request.JobApplicationId, appUserId);
 
         if (jobApplication is null)
         {
@@ -68,9 +68,9 @@ public class ApplicationEventService : IApplicationEventService
         };
     }
 
-    public async Task<bool> UpdateAsync(int id, UpdateApplicationEventRequest request)
+    public async Task<bool> UpdateAsync(int id, UpdateApplicationEventRequest request, int appUserId)
     {
-        var applicationEvent = await _applicationEventRepository.GetByIdAsync(id);
+        var applicationEvent = await _applicationEventRepository.GetByIdAsync(id, appUserId);
 
         if (applicationEvent is null)
         {
@@ -86,9 +86,9 @@ public class ApplicationEventService : IApplicationEventService
         return true;
     }
 
-    public async Task<bool> DeleteAsync(int id)
+    public async Task<bool> DeleteAsync(int id, int appUserId)
     {
-        var applicationEvent = await _applicationEventRepository.GetByIdAsync(id);
+        var applicationEvent = await _applicationEventRepository.GetByIdAsync(id, appUserId);
 
         if (applicationEvent is null)
         {

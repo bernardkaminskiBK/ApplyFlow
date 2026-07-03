@@ -13,11 +13,12 @@ public class ApplicationEventRepository : IApplicationEventRepository
         _dbContext = dbContext;
     }
 
-    public async Task<List<ApplicationEvent>> GetAllAsync()
+    public async Task<List<ApplicationEvent>> GetAllAsync(int appUserId)
     {
         return await _dbContext.ApplicationEvents
             .Include(eventItem => eventItem.JobApplication)
                 .ThenInclude(application => application.Company)
+            .Where(eventItem => eventItem.JobApplication.Company.AppUserId == appUserId)
             .AsNoTracking()
             .OrderByDescending(eventItem => eventItem.EventDate)
             .ToListAsync();
@@ -34,11 +35,12 @@ public class ApplicationEventRepository : IApplicationEventRepository
             .ToListAsync();
     }
 
-    public async Task<ApplicationEvent?> GetByIdAsync(int id)
+    public async Task<ApplicationEvent?> GetByIdAsync(int id, int appUserId)
     {
         return await _dbContext.ApplicationEvents
             .Include(eventItem => eventItem.JobApplication)
                 .ThenInclude(application => application.Company)
+            .Where(eventItem => eventItem.JobApplication.Company.AppUserId == appUserId)
             .AsNoTracking()
             .FirstOrDefaultAsync(eventItem => eventItem.Id == id);
     }
@@ -63,8 +65,9 @@ public class ApplicationEventRepository : IApplicationEventRepository
         await _dbContext.SaveChangesAsync();
     }
 
-    public async Task<int> CountAsync()
+    public async Task<int> CountAsync(int appUserId)
     {
-        return await _dbContext.ApplicationEvents.CountAsync();
+        return await _dbContext.ApplicationEvents
+            .CountAsync(eventItem => eventItem.JobApplication.Company.AppUserId == appUserId);
     }
 }

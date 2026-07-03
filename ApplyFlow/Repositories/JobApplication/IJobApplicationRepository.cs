@@ -6,8 +6,6 @@ public interface IJobApplicationRepository
 {
     Task<List<JobApplication>> GetAllAsync(int appUserId);
 
-    Task<JobApplication?> GetByIdAsync(int id);
-
     Task<JobApplication?> GetByIdAsync(int id, int appUserId);
 
     Task<JobApplication> CreateAsync(JobApplication application);

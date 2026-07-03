@@ -31,14 +31,6 @@ public class JobApplicationRepository : IJobApplicationRepository
             .FirstOrDefaultAsync(application => application.Id == id);
     }
 
-    public async Task<JobApplication?> GetByIdAsync(int id)
-    {
-        return await _dbContext.JobApplications
-            .Include(application => application.Company)
-            .AsNoTracking()
-            .FirstOrDefaultAsync(application => application.Id == id);
-    }
-
     public async Task<JobApplication> CreateAsync(JobApplication application)
     {
         _dbContext.JobApplications.Add(application);

@@ -18,7 +18,7 @@ namespace ApplyFlow.Api.Services.Dashboard
             {
                 CompanyCount = await _companyRepository.CountAsync(_currentUserService.UserId),
                 JobApplicationCount = await _jobApplicationRepository.CountAsync(_currentUserService.UserId),
-                ApplicationEventCount = await _applicationEventRepository.CountAsync(),
+                ApplicationEventCount = await _applicationEventRepository.CountAsync(_currentUserService.UserId),
                 ContactPersonCount = await _contactPersonRepository.CountAsync()
             };
         }

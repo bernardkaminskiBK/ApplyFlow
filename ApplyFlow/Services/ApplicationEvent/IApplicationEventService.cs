@@ -4,15 +4,15 @@ namespace ApplyFlow.Api.Services;
 
 public interface IApplicationEventService
 {
-    Task<List<ApplicationEventResponse>> GetAllAsync();
+    Task<List<ApplicationEventResponse>> GetAllAsync(int appUserId);
 
     Task<List<ApplicationEventResponse>> GetByJobApplicationIdAsync(int jobApplicationId);
 
-    Task<ApplicationEventResponse?> GetByIdAsync(int id);
+    Task<ApplicationEventResponse?> GetByIdAsync(int id, int appUserId);
 
-    Task<ApplicationEventResponse> CreateAsync(CreateApplicationEventRequest request);
+    Task<ApplicationEventResponse> CreateAsync(CreateApplicationEventRequest request, int appUserId);
 
-    Task<bool> UpdateAsync(int id, UpdateApplicationEventRequest request);
+    Task<bool> UpdateAsync(int id, UpdateApplicationEventRequest request, int appUserId);
 
-    Task<bool> DeleteAsync(int id);
+    Task<bool> DeleteAsync(int id, int appUserId);
 }
