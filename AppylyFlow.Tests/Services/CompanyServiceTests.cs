@@ -30,7 +30,7 @@ public class CompanyServiceTests
         };
 
         _companyRepositoryMock
-            .Setup(repository => repository.GetByNameAsync(request.Name))
+            .Setup(repository => repository.GetByNameAsync(request.Name, 1))
             .ReturnsAsync((Company?)null);
 
         _companyRepositoryMock
@@ -42,7 +42,7 @@ public class CompanyServiceTests
             });
 
         // Act
-        var result = await _companyService.CreateAsync(request);
+        var result = await _companyService.CreateAsync(request, 1);
 
         // Assert
         result.Id.Should().Be(1);
@@ -62,7 +62,7 @@ public class CompanyServiceTests
         };
 
         _companyRepositoryMock
-            .Setup(repository => repository.GetByNameAsync(request.Name))
+            .Setup(repository => repository.GetByNameAsync(request.Name, 1))
             .ReturnsAsync(new Company
             {
                 Id = 1,
@@ -70,7 +70,7 @@ public class CompanyServiceTests
             });
 
         // Act
-        Func<Task> act = () => _companyService.CreateAsync(request);
+        Func<Task> act = () => _companyService.CreateAsync(request, 1);
 
         // Assert
         await act.Should().ThrowAsync<CompanyAlreadyExistsException>();

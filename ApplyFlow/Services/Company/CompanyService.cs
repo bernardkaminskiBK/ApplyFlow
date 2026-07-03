@@ -38,9 +38,9 @@ public class CompanyService : ICompanyService
     }
 
 
-    public async Task<CompanyResponse> CreateAsync(CreateCompanyRequest request, int userId)
+    public async Task<CompanyResponse> CreateAsync(CreateCompanyRequest request, int appUserId)
     {
-        var existingCompany = await _companyRepository.GetByNameAsync(request.Name, userId);
+        var existingCompany = await _companyRepository.GetByNameAsync(request.Name, appUserId);
 
         if (existingCompany is not null)
         {
@@ -53,7 +53,7 @@ public class CompanyService : ICompanyService
             City = request.City,
             Website = request.Website,
             Note = request.Note,
-            AppUserId = userId,
+            AppUserId = appUserId,
         };
 
         var createdCompany = await _companyRepository.CreateAsync(company);
@@ -61,9 +61,9 @@ public class CompanyService : ICompanyService
         return MapToResponse(createdCompany);
     }
 
-    public async Task<bool> UpdateAsync(int id, UpdateCompanyRequest request, int userId)
+    public async Task<bool> UpdateAsync(int id, UpdateCompanyRequest request, int appUserId)
     {
-        var company = await _companyRepository.GetByIdAsync(id, userId);
+        var company = await _companyRepository.GetByIdAsync(id, appUserId);
 
         if (company is null)
         {
@@ -80,9 +80,9 @@ public class CompanyService : ICompanyService
         return true;
     }
 
-    public async Task<bool> DeleteAsync(int id, int userId)
+    public async Task<bool> DeleteAsync(int id, int appUserId)
     {
-        var company = await _companyRepository.GetByIdAsync(id, userId);
+        var company = await _companyRepository.GetByIdAsync(id, appUserId);
 
         if (company is null)
         {

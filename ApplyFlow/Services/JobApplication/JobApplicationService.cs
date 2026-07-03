@@ -16,13 +16,18 @@ public class JobApplicationService : IJobApplicationService
         _companyRepository = companyRepository;
     }
 
-    public async Task<List<JobApplicationResponse>> GetAllAsync()
+    public async Task<List<JobApplicationResponse>> GetAllAsync(int appUserId)
     {
-        var applications = await _jobApplicationRepository.GetAllAsync();
+        var applications = await _jobApplicationRepository.GetAllAsync(appUserId);
 
-        return applications
-            .Select(MapToResponse)
-            .ToList();
+        return applications.Select(MapToResponse).ToList();
+    }
+
+    public async Task<JobApplicationResponse?> GetByIdAsync(int id, int appUserId)
+    {
+        var application = await _jobApplicationRepository.GetByIdAsync(id, appUserId);
+
+        return application is null ? null : MapToResponse(application);
     }
 
     public async Task<JobApplicationResponse?> GetByIdAsync(int id)
@@ -32,9 +37,9 @@ public class JobApplicationService : IJobApplicationService
         return application is null ? null : MapToResponse(application);
     }
 
-    public async Task<JobApplicationResponse> CreateAsync(CreateJobApplicationRequest request)
+    public async Task<JobApplicationResponse> CreateAsync(CreateJobApplicationRequest request, int appUserId)
     {
-        var company = await _companyRepository.GetByIdAsync(request.CompanyId);
+        var company = await _companyRepository.GetByIdAsync(request.CompanyId, appUserId);
 
         if (company is null)
         {
@@ -74,18 +79,18 @@ public class JobApplicationService : IJobApplicationService
         };
     }
 
-    public async Task<bool> UpdateAsync(int id, UpdateJobApplicationRequest request)
+    public async Task<bool> UpdateAsync(int id, UpdateJobApplicationRequest request, int appUserId)
     {
-        var application = await _jobApplicationRepository.GetByIdAsync(id);
+        var application = await _jobApplicationRepository.GetByIdAsync(id, appUserId);
 
         if (application is null)
         {
             return false;
         }
 
-        var company = await _companyRepository.GetByIdAsync(request.CompanyId);
+        var targetCompany = await _companyRepository.GetByIdAsync(request.CompanyId, appUserId);
 
-        if (company is null)
+        if (targetCompany is null)
         {
             throw new CompanyNotFoundException(request.CompanyId);
         }
@@ -106,9 +111,9 @@ public class JobApplicationService : IJobApplicationService
         return true;
     }
 
-    public async Task<bool> DeleteAsync(int id)
+    public async Task<bool> DeleteAsync(int id, int appUserId)
     {
-        var application = await _jobApplicationRepository.GetByIdAsync(id);
+        var application = await _jobApplicationRepository.GetByIdAsync(id, appUserId);
 
         if (application is null)
         {

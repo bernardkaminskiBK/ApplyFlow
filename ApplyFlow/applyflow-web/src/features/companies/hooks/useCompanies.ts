@@ -67,7 +67,8 @@ export function useCompanies() {
         return;
       }
 
-      setError("Company could not be saved.");
+      const errorMessage = error.response?.data?.message;
+      setError("Company could not be saved. " + errorMessage);
     }
   }
 

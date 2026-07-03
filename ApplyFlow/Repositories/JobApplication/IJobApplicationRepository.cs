@@ -4,9 +4,11 @@ namespace ApplyFlow.Api.Repositories;
 
 public interface IJobApplicationRepository
 {
-    Task<List<JobApplication>> GetAllAsync();
+    Task<List<JobApplication>> GetAllAsync(int appUserId);
 
     Task<JobApplication?> GetByIdAsync(int id);
+
+    Task<JobApplication?> GetByIdAsync(int id, int appUserId);
 
     Task<JobApplication> CreateAsync(JobApplication application);
 
@@ -14,5 +16,5 @@ public interface IJobApplicationRepository
 
     Task DeleteAsync(JobApplication application);
 
-    Task<int> CountAsync();
+    Task<int> CountAsync(int appUserId);
 }

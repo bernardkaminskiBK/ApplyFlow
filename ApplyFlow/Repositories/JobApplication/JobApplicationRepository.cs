@@ -13,12 +13,22 @@ public class JobApplicationRepository : IJobApplicationRepository
         _dbContext = dbContext;
     }
 
-    public async Task<List<JobApplication>> GetAllAsync()
+    public async Task<List<JobApplication>> GetAllAsync(int appUserId)
     {
         return await _dbContext.JobApplications
             .Include(application => application.Company)
+            .Where(application => application.Company.AppUserId == appUserId)
             .AsNoTracking()
             .ToListAsync();
+    }
+
+    public async Task<JobApplication?> GetByIdAsync(int id, int appUserId)
+    {
+        return await _dbContext.JobApplications
+            .Include(application => application.Company)
+            .Where(application => application.Company.AppUserId == appUserId)
+            .AsNoTracking()
+            .FirstOrDefaultAsync(application => application.Id == id);
     }
 
     public async Task<JobApplication?> GetByIdAsync(int id)
@@ -52,8 +62,8 @@ public class JobApplicationRepository : IJobApplicationRepository
         await _dbContext.SaveChangesAsync();
     }
 
-    public async Task<int> CountAsync()
+    public async Task<int> CountAsync(int appUserId)
     {
-        return await _dbContext.JobApplications.CountAsync();
+        return await _dbContext.JobApplications.CountAsync(app => app.Company.AppUserId == appUserId);
     }
 }
