@@ -14,11 +14,12 @@ public class ContactPersonRepository : IContactPersonRepository
         _dbContext = dbContext;
     }
 
-    public async Task<PagedResult<ContactPerson>> GetAllAsync(int page, int pageSize)
+    public async Task<PagedResult<ContactPerson>> GetAllAsync(int page, int pageSize, int appUserId)
     {
-        var totalCount = await _dbContext.ContactPersons.CountAsync();
+        var totalCount = await CountAsync(appUserId);
         var contacts = await _dbContext.ContactPersons
             .Include(contact => contact.Company)
+            .Where(contact => contact.Company.AppUserId == appUserId)
             .AsNoTracking()
             .OrderBy(contact => contact.Id)
             .Skip((page - 1) * pageSize)
@@ -28,10 +29,11 @@ public class ContactPersonRepository : IContactPersonRepository
         return new PagedResult<ContactPerson> { Items = contacts, TotalCount = totalCount };
     }
 
-    public async Task<ContactPerson?> GetByIdAsync(int id)
+    public async Task<ContactPerson?> GetByIdAsync(int id, int appUserId)
     {
         return await _dbContext.ContactPersons
             .Include(contact => contact.Company)
+            .Where(contact => contact.Company.AppUserId == appUserId)
             .AsNoTracking()
             .FirstOrDefaultAsync(contact => contact.Id == id);
     }
@@ -59,8 +61,8 @@ public class ContactPersonRepository : IContactPersonRepository
         await _dbContext.SaveChangesAsync();
     }
 
-    public async Task<int> CountAsync()
+    public async Task<int> CountAsync(int appUserId)
     {
-        return await _dbContext.ContactPersons.CountAsync();
+        return await _dbContext.ContactPersons.CountAsync(contactPersons => contactPersons.Company.AppUserId == appUserId);
     }
 }

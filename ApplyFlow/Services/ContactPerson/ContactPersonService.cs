@@ -17,9 +17,9 @@ public class ContactPersonService : IContactPersonService
         _companyRepository = companyRepository;
     }
 
-    public async Task<PagedResult<ContactPersonResponse>> GetAllAsync(int page, int pageSize)
+    public async Task<PagedResult<ContactPersonResponse>> GetAllAsync(int page, int pageSize, int appUserId)
     {
-        var pagedContacts = await _contactPersonRepository.GetAllAsync(page, pageSize);
+        var pagedContacts = await _contactPersonRepository.GetAllAsync(page, pageSize, appUserId);
 
         return new PagedResult<ContactPersonResponse>
         {
@@ -28,16 +28,16 @@ public class ContactPersonService : IContactPersonService
         };
     }
 
-    public async Task<ContactPersonResponse?> GetByIdAsync(int id)
+    public async Task<ContactPersonResponse?> GetByIdAsync(int id, int appUserId)
     {
-        var contact = await _contactPersonRepository.GetByIdAsync(id);
+        var contact = await _contactPersonRepository.GetByIdAsync(id, appUserId);
 
         return contact is null ? null : MapToResponse(contact);
     }
 
-    public async Task<ContactPersonResponse> CreateAsync(CreateContactPersonRequest request)
+    public async Task<ContactPersonResponse> CreateAsync(CreateContactPersonRequest request, int appUserId)
     {
-        var company = await _companyRepository.GetByIdAsync(request.CompanyId);
+        var company = await _companyRepository.GetByIdAsync(request.CompanyId, appUserId);
 
         if (company is null)
         {
@@ -67,9 +67,9 @@ public class ContactPersonService : IContactPersonService
         };
     }
 
-    public async Task<bool> UpdateAsync(int id, UpdateContactPersonRequest request)
+    public async Task<bool> UpdateAsync(int id, UpdateContactPersonRequest request, int appUserId)
     {
-        var contact = await _contactPersonRepository.GetByIdAsync(id);
+        var contact = await _contactPersonRepository.GetByIdAsync(id, appUserId);
 
         if (contact is null)
         {
@@ -86,9 +86,9 @@ public class ContactPersonService : IContactPersonService
         return true;
     }
 
-    public async Task<bool> DeleteAsync(int id)
+    public async Task<bool> DeleteAsync(int id, int appUserId)
     {
-        var contact = await _contactPersonRepository.GetByIdAsync(id);
+        var contact = await _contactPersonRepository.GetByIdAsync(id, appUserId);
 
         if (contact is null)
         {

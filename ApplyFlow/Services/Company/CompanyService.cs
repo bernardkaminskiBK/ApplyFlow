@@ -30,14 +30,6 @@ public class CompanyService : ICompanyService
         return company is null ? null : MapToResponse(company);
     }
 
-    public async Task<CompanyResponse?> GetByIdAsync(int id)
-    {
-        var company = await _companyRepository.GetByIdAsync(id);
-
-        return company is null ? null : MapToResponse(company);
-    }
-
-
     public async Task<CompanyResponse> CreateAsync(CreateCompanyRequest request, int appUserId)
     {
         var existingCompany = await _companyRepository.GetByNameAsync(request.Name, appUserId);

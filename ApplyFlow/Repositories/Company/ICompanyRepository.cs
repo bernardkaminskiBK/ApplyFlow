@@ -6,8 +6,6 @@ public interface ICompanyRepository
 {
     Task<List<Company>> GetAllAsync(int appUserId);
 
-    Task<Company?> GetByIdAsync(int id);
-
     Task<Company?> GetByIdAsync(int id, int appUserId);
 
     Task<Company?> GetByNameAsync(string name, int appUserId);

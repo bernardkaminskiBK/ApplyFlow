@@ -22,13 +22,6 @@ public class CompanyRepository : ICompanyRepository
             .ToListAsync();
     }
 
-    public async Task<Company?> GetByIdAsync(int id)
-    {
-        return await _dbContext.Companies
-            .AsNoTracking()
-            .FirstOrDefaultAsync(company => company.Id == id);
-    }
-
     public async Task<Company?> GetByIdAsync(int id, int appUserId)
     {
         return await _dbContext.Companies

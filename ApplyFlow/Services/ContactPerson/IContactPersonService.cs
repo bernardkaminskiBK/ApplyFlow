@@ -5,13 +5,13 @@ namespace ApplyFlow.Api.Services;
 
 public interface IContactPersonService
 {
-    Task<PagedResult<ContactPersonResponse>> GetAllAsync(int page, int pageSize);
+    Task<PagedResult<ContactPersonResponse>> GetAllAsync(int page, int pageSize, int appUserId);
 
-    Task<ContactPersonResponse?> GetByIdAsync(int id);
+    Task<ContactPersonResponse?> GetByIdAsync(int id, int appUserId);
 
-    Task<ContactPersonResponse> CreateAsync(CreateContactPersonRequest request);
+    Task<ContactPersonResponse> CreateAsync(CreateContactPersonRequest request, int appUserId);
 
-    Task<bool> UpdateAsync(int id, UpdateContactPersonRequest request);
+    Task<bool> UpdateAsync(int id, UpdateContactPersonRequest request, int appUserId);
 
-    Task<bool> DeleteAsync(int id);
+    Task<bool> DeleteAsync(int id, int appUserId);
 }
