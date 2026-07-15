@@ -56,6 +56,18 @@ namespace ApplyFlow.Api.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("AppUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedAt = new DateTime(2026, 7, 15, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Email = "admin@admin.com",
+                            FirstName = "Admin",
+                            LastName = "Admin",
+                            PasswordHash = "ELŐRE_LEGENERÁLT_HASH",
+                            Role = "Admin"
+                        });
                 });
 
             modelBuilder.Entity("ApplyFlow.Api.Models.ApplicationEvent", b =>
@@ -145,7 +157,7 @@ namespace ApplyFlow.Api.Migrations
                         new
                         {
                             Id = 1,
-                            AppUserId = 0,
+                            AppUserId = 1,
                             City = "Bratislava",
                             Name = "SEN Systems",
                             Note = "Potential React + .NET opportunity",
@@ -154,7 +166,7 @@ namespace ApplyFlow.Api.Migrations
                         new
                         {
                             Id = 2,
-                            AppUserId = 0,
+                            AppUserId = 1,
                             City = "Bratislava",
                             Name = "Alanata",
                             Note = "Junior Java Developer opportunity",

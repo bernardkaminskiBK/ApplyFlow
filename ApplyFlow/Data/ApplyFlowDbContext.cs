@@ -21,10 +21,25 @@ public class ApplyFlowDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
+        modelBuilder.Entity<AppUser>().HasData(
+            new AppUser
+            {
+                Id = 1,
+                FirstName = "Admin",
+                LastName = "Admin",
+                Email = "admin@admin.com",
+                PasswordHash = "PASSWORD_HASH",
+                Role = "Admin",
+                CreatedAt = new DateTime(
+                    2026, 7, 15, 0, 0, 0, DateTimeKind.Utc)
+            }
+        );
+
         modelBuilder.Entity<Company>().HasData(
             new Company
             {
                 Id = 1,
+                AppUserId = 1,
                 Name = "SEN Systems",
                 City = "Bratislava",
                 Website = "https://www.sensystems.sk",
@@ -33,6 +48,7 @@ public class ApplyFlowDbContext : DbContext
             new Company
             {
                 Id = 2,
+                AppUserId = 1,
                 Name = "Alanata",
                 City = "Bratislava",
                 Website = "https://www.alanata.sk",

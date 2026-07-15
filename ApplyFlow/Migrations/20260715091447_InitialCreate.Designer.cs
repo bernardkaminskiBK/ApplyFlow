@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ApplyFlow.Api.Migrations
 {
     [DbContext(typeof(ApplyFlowDbContext))]
-    [Migration("20260626065418_AddAppUsers")]
-    partial class AddAppUsers
+    [Migration("20260715091447_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,6 +40,14 @@ namespace ApplyFlow.Api.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -51,6 +59,18 @@ namespace ApplyFlow.Api.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("AppUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedAt = new DateTime(2026, 7, 15, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Email = "admin@admin.com",
+                            FirstName = "Admin",
+                            LastName = "Admin",
+                            PasswordHash = "ELŐRE_LEGENERÁLT_HASH",
+                            Role = "Admin"
+                        });
                 });
 
             modelBuilder.Entity("ApplyFlow.Api.Models.ApplicationEvent", b =>
@@ -114,6 +134,9 @@ namespace ApplyFlow.Api.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("AppUserId")
+                        .HasColumnType("int");
+
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
 
@@ -129,12 +152,15 @@ namespace ApplyFlow.Api.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AppUserId");
+
                     b.ToTable("Companies");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
+                            AppUserId = 1,
                             City = "Bratislava",
                             Name = "SEN Systems",
                             Note = "Potential React + .NET opportunity",
@@ -143,6 +169,7 @@ namespace ApplyFlow.Api.Migrations
                         new
                         {
                             Id = 2,
+                            AppUserId = 1,
                             City = "Bratislava",
                             Name = "Alanata",
                             Note = "Junior Java Developer opportunity",
@@ -282,6 +309,17 @@ namespace ApplyFlow.Api.Migrations
                     b.Navigation("JobApplication");
                 });
 
+            modelBuilder.Entity("ApplyFlow.Api.Models.Company", b =>
+                {
+                    b.HasOne("ApplyFlow.Api.Authentication.Models.AppUser", "AppUser")
+                        .WithMany("Companies")
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+                });
+
             modelBuilder.Entity("ApplyFlow.Api.Models.ContactPerson", b =>
                 {
                     b.HasOne("ApplyFlow.Api.Models.Company", "Company")
@@ -302,6 +340,11 @@ namespace ApplyFlow.Api.Migrations
                         .IsRequired();
 
                     b.Navigation("Company");
+                });
+
+            modelBuilder.Entity("ApplyFlow.Api.Authentication.Models.AppUser", b =>
+                {
+                    b.Navigation("Companies");
                 });
 
             modelBuilder.Entity("ApplyFlow.Api.Models.Company", b =>
